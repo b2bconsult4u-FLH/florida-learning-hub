@@ -85,6 +85,81 @@ main{padding:20px 22px 42px}
 .footer{text-align:center;padding:26px 20px 34px;border-top:1px solid var(--green);color:var(--green);font-size:14px}
 .footer .small{font-size:13px;color:#5e512f}
 ul{line-height:1.7}
+/* Article meta line (byline) */
+.article-meta{
+  font-size:13px;
+  text-transform:uppercase;
+  letter-spacing:1.2px;
+  color:#6b5b31;
+  margin:0 0 24px;
+  font-weight:bold;
+}
+
+/* Article illustration with caption */
+.article-figure{
+  margin:28px 0;
+  text-align:center;
+  border:1px solid var(--border);
+  background:var(--paper);
+  padding:14px 14px 10px;
+}
+.article-figure img{
+  width:100%;
+  max-width:860px;
+  height:auto;
+  display:block;
+  margin:0 auto;
+}
+.article-figure figcaption{
+  font-size:13px;
+  color:#6b5b31;
+  font-style:italic;
+  margin-top:10px;
+  line-height:1.5;
+}
+
+/* Did You Know? sidebar box */
+.sidebar{
+  background:#fffaf0;
+  border:1px solid var(--border);
+  border-left:4px solid var(--gold);
+  padding:18px 22px;
+  margin:28px 0;
+}
+.sidebar h4{
+  margin:0 0 12px;
+  color:var(--green);
+  font-size:16px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
+.sidebar ul{
+  margin:0;
+  padding-left:18px;
+  font-size:15px;
+  line-height:1.75;
+  color:var(--ink);
+}
+
+/* Article call-to-action block */
+.article-cta{
+  background:var(--cream);
+  border:1px solid var(--border);
+  border-left:4px solid var(--green);
+  padding:20px 24px;
+  margin:36px 0 12px;
+  font-size:16px;
+  line-height:1.65;
+}
+.article-cta p{
+  margin:0 0 14px;
+}
+.article-cta .btn{
+  font-size:15px;
+  font-weight:bold;
+  letter-spacing:.5px;
+}
+
 @media(max-width:850px){
   .feature-grid{grid-template-columns:1fr}
   .hero h1,.article h1{font-size:31px}
