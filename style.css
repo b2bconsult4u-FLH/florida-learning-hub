@@ -204,10 +204,42 @@ ul{line-height:1.7}
 }
 .related-list .pending{color:#6b5b31;font-style:italic}
 
+/* Book landing pages and book cards */
+.book-layout{
+  display:grid;
+  grid-template-columns:minmax(240px,340px) 1fr;
+  gap:34px;
+  align-items:start;
+  margin-top:16px;
+}
+.book-cover{margin:0}
+.book-cover img{
+  display:block;
+  width:100%;
+  height:auto;
+  border:1px solid var(--border);
+  box-shadow:0 5px 16px rgba(36,63,40,.18);
+}
+.book-details h1{margin-top:0}
+.buy-btn{
+  background:var(--green);
+  color:#fffdf7;
+  border-color:var(--green);
+  padding:12px 18px;
+  font-weight:bold;
+}
+.buy-btn:hover{background:#1f3d22}
+.retailer-note{font-size:12px!important;color:#6b5b31}
+.book-card{display:grid;grid-template-columns:120px 1fr;gap:18px;align-items:start}
+.book-card img{width:100%;height:auto;border:1px solid var(--border)}
+
 @media(max-width:850px){
   .quick-facts th{width:auto;white-space:normal}
   .feature-grid{grid-template-columns:1fr}
   .hero h1,.article h1{font-size:31px}
   .nav a{display:inline-block;margin:3px 9px;font-size:14px}
   main{padding:18px 14px 36px}
+  .book-layout{grid-template-columns:1fr}
+  .book-cover{max-width:330px;margin:0 auto}
+  .book-card{grid-template-columns:90px 1fr}
 }
