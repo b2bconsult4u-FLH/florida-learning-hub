@@ -57,6 +57,10 @@ main{padding:20px 22px 42px}
   gap:22px;
   margin:8px 0 26px;
 }
+.feature-grid > .panel{
+  align-self:start;
+  height:fit-content;
+}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
 .card,.panel,.article{
   background:var(--paper);
