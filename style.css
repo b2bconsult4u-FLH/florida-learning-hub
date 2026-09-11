@@ -238,6 +238,31 @@ ul{line-height:1.7}
 .book-card{display:grid;grid-template-columns:120px 1fr;gap:18px;align-items:start}
 .book-card img{width:100%;height:auto;border:1px solid var(--border)}
 
+/* One-time homepage entrance: visual only, with no layout delay */
+@keyframes home-block-enter{
+  0%{opacity:.35;transform:translateY(8px) scale(.992)}
+  60%{opacity:.92;transform:translateY(-1px) scale(1)}
+  100%{opacity:1;transform:translateY(0) scale(1)}
+}
+.home-page .hero{
+  animation:home-block-enter .42s ease-out both;
+}
+.home-page .feature-grid > .panel{
+  animation:home-block-enter .48s ease-out both;
+}
+.home-page .feature-grid > .panel:first-child{
+  animation-delay:.08s;
+}
+.home-page .feature-grid > .panel:nth-child(2){
+  animation-delay:.16s;
+}
+@media(prefers-reduced-motion:reduce){
+  .home-page .hero,
+  .home-page .feature-grid > .panel{
+    animation:none;
+  }
+}
+
 @media(max-width:850px){
   .quick-facts th{width:auto;white-space:normal}
   .feature-grid{grid-template-columns:1fr}
