@@ -53,6 +53,7 @@ main{padding:20px 22px 42px}
 .feature-grid{
   display:grid;
   grid-template-columns:2fr 1fr;
+  align-items:start;
   gap:22px;
   margin:8px 0 26px;
 }
