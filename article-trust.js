@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const file = location.pathname.split("/").pop() || "index.html";
+  const parts = location.pathname.split("/").filter(Boolean);
+  const segment = parts.length ? decodeURIComponent(parts[parts.length - 1]) : "";
+  const file = !segment ? "index.html" : (segment.endsWith(".html") ? segment : segment + ".html");
   const excluded = new Set(["index.html","read-florida.html","discover-pioneer-florida.html","teach-pioneer-florida.html","classroom-resources.html","stories-and-books.html","today-in-florida-history.html","about-flh.html","about-author.html","research-standards.html","image-copyright-policy.html","corrections-policy.html","before-texas-book.html","florida-cracker-cattle-book.html"]);
   const main = document.querySelector("main");
   const article = main && main.querySelector(".article");
