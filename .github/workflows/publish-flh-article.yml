@@ -1,0 +1,62 @@
+name: Publish FLH Article
+
+on:
+  workflow_dispatch:
+    inputs:
+      asset_id:
+        description: "FLH Asset ID to publish (example: FLH-0320)"
+        required: true
+        type: string
+      article_type:
+        description: "Article type"
+        required: true
+        default: "Mini"
+        type: choice
+        options:
+          - Mini
+          - Full Article
+      confirm_publish:
+        description: "Type PUBLISH to confirm this controlled run"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    if: ${{ inputs.confirm_publish == 'PUBLISH' }}
+    runs-on: ubuntu-latest
+    concurrency:
+      group: flh-publisher
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install publisher dependencies
+        run: pip install --disable-pip-version-check google-api-python-client google-auth python-docx requests
+
+      - name: Publish one explicitly selected approved article
+        env:
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.FLH_GOOGLE_SERVICE_ACCOUNT_JSON }}
+          FLH_PUBLISHING_SHEET_ID: 1ZkXrlRelnaCV9OdQcv2IqX_jSJ-ke2C47u2myZGeHnQ
+          FLH_ASSET_ID: ${{ inputs.asset_id }}
+          FLH_ARTICLE_TYPE: ${{ inputs.article_type }}
+        run: python scripts/publish_flh_article.py
+
+      - name: Commit generated article
+        run: |
+          if git diff --quiet; then
+            echo "No repository changes produced."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Publish ${{ inputs.asset_id }} ${{ inputs.article_type }}"
+          git push
