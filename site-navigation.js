@@ -1,5 +1,28 @@
 document.documentElement.classList.add("nav-enhanced");
 document.addEventListener("DOMContentLoaded", function () {
+  const compactMenuStyle = document.createElement("style");
+  compactMenuStyle.textContent = `
+    @media (max-width:850px){
+      .nav-enhanced .nav-toggle{
+        width:108px;
+        min-height:34px;
+        margin:0 auto 6px;
+        padding:4px 8px;
+        gap:4px;
+        border:1px solid #1f3d22;
+        border-radius:4px;
+        background:#294d2b;
+        color:#fffdf7;
+        font:700 12px Arial,sans-serif;
+        line-height:1;
+        box-shadow:0 1px 3px rgba(36,63,40,.18);
+      }
+      .nav-enhanced .nav-toggle span[aria-hidden="true"]{font-size:12px}
+      .nav-enhanced .nav-toggle:hover{background:#1f3d22}
+    }
+  `;
+  document.head.appendChild(compactMenuStyle);
+
   const toggle = document.querySelector(".nav-toggle");
   const nav = document.getElementById("primary-nav");
   if (toggle && nav) {
