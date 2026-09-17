@@ -41,14 +41,34 @@ jobs:
           FLH_ARTICLE_TYPE: Mini
         run: python scripts/publish_flh_article.py
 
-      - name: Commit generated Mini article
+      - name: Add Mini to FLH Article Library
+        env:
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.FLH_GOOGLE_SERVICE_ACCOUNT_JSON }}
+          FLH_PUBLISHING_SHEET_ID: 1ZkXrlRelnaCV9OdQcv2IqX_jSJ-ke2C47u2myZGeHnQ
+          FLH_ASSET_ID: ${{ inputs.asset_id }}
+          FLH_ARTICLE_TYPE: Mini
+        run: python scripts/update_flh_library.py
+
+      - name: Commit article, image, and library listing
+        id: publish_commit
         run: |
           git add -A
           if git diff --cached --quiet; then
             echo "No repository changes produced."
+            echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git commit -m "Publish ${{ inputs.asset_id }} Mini"
           git push
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Write successful publication back to Publishing Control Sheet
+        env:
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.FLH_GOOGLE_SERVICE_ACCOUNT_JSON }}
+          FLH_PUBLISHING_SHEET_ID: 1ZkXrlRelnaCV9OdQcv2IqX_jSJ-ke2C47u2myZGeHnQ
+          FLH_ASSET_ID: ${{ inputs.asset_id }}
+          FLH_ARTICLE_TYPE: Mini
+          FLH_PUBLISH_COMMIT_SHA: ${{ steps.publish_commit.outputs.sha }}
+        run: python scripts/writeback_flh_publication.py
