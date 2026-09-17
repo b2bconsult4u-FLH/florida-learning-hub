@@ -51,33 +51,55 @@ def load_docx(data):
     return z, root, rels
 
 
+def image_extension(target, raw):
+    ext = Path(target).suffix.lower()
+    if ext in {".jpg", ".jpeg", ".png", ".gif", ".webp"}:
+        return ".jpg" if ext == ".jpeg" else ext
+    if raw.startswith(b"\x89PNG\r\n\x1a\n"):
+        return ".png"
+    if raw.startswith(b"\xff\xd8\xff"):
+        return ".jpg"
+    if raw.startswith((b"GIF87a", b"GIF89a")):
+        return ".gif"
+    if raw.startswith(b"RIFF") and raw[8:12] == b"WEBP":
+        return ".webp"
+    return ".jpg"
+
+
 def extract_blocks(z, root, rels, asset_dir, slug):
     body = root.find("w:body", NS)
     blocks = []
     image_no = 0
     last_figure = None
+
+    def extract_figures(el):
+        nonlocal image_no
+        figures = []
+        for blip in el.findall(".//a:blip", NS):
+            rid = blip.get(f"{{{NS['r']}}}embed")
+            target = rels.get(rid, "")
+            if not target.startswith("media/"):
+                continue
+            raw = z.read("word/" + target)
+            image_no += 1
+            ext = image_extension(target, raw)
+            name = f"{slug}-{image_no}{ext}"
+            asset_dir.mkdir(parents=True, exist_ok=True)
+            (asset_dir / name).write_bytes(raw)
+            alt_el = el.find(".//wp:docPr", NS)
+            alt = ""
+            if alt_el is not None:
+                alt = alt_el.get("descr") or alt_el.get("title") or ""
+            figures.append({"kind": "figure", "src": f"assets/articles/{name}", "alt": alt, "caption": ""})
+        return figures
+
     for el in list(body):
         tag = el.tag.rsplit("}", 1)[-1]
         if tag == "p":
             txt = text_of(el)
-            blips = el.findall(".//a:blip", NS)
-            if blips:
-                for blip in blips:
-                    rid = blip.get(f"{{{NS['r']}}}embed")
-                    target = rels.get(rid, "")
-                    if not target.startswith("media/"):
-                        continue
-                    image_no += 1
-                    raw = z.read("word/" + target)
-                    ext = Path(target).suffix.lower() or ".jpg"
-                    name = f"{slug}-{image_no}{ext}"
-                    asset_dir.mkdir(parents=True, exist_ok=True)
-                    (asset_dir / name).write_bytes(raw)
-                    alt_el = el.find(".//wp:docPr", NS)
-                    alt = ""
-                    if alt_el is not None:
-                        alt = alt_el.get("descr") or alt_el.get("title") or ""
-                    figure = {"kind": "figure", "src": f"assets/articles/{name}", "alt": alt, "caption": ""}
+            figures = extract_figures(el)
+            if figures:
+                for figure in figures:
                     blocks.append(figure)
                     last_figure = figure
                 if txt:
@@ -86,8 +108,8 @@ def extract_blocks(z, root, rels, asset_dir, slug):
             if not txt:
                 continue
             style = style_of(el).lower()
-            if last_figure is not None and ("caption" in style or txt.lower().startswith(("image:", "photo:", "map:"))):
-                last_figure["caption"] = txt
+            if last_figure is not None and ("caption" in style or txt.lower().startswith(("image:", "photo:", "map:", "caption:"))):
+                last_figure["caption"] = re.sub(r"^(image|photo|map|caption):\s*", "", txt, flags=re.I)
                 last_figure = None
             elif "title" in style:
                 blocks.append({"kind": "title", "text": txt})
@@ -108,6 +130,18 @@ def extract_blocks(z, root, rels, asset_dir, slug):
                 blocks.append({"kind": "p", "text": txt})
                 last_figure = None
         elif tag == "tbl":
+            figures = extract_figures(el)
+            if figures:
+                table_text = text_of(el)
+                caption = ""
+                m = re.search(r"Caption:\s*(.*?)(?:Source citation:|$)", table_text, flags=re.I | re.S)
+                if m:
+                    caption = m.group(1).strip()
+                for figure in figures:
+                    figure["caption"] = caption
+                    blocks.append(figure)
+                last_figure = None
+                continue
             rows = []
             for tr in el.findall("./w:tr", NS):
                 cells = [text_of(tc) for tc in tr.findall("./w:tc", NS)]
