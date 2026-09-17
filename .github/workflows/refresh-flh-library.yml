@@ -1,0 +1,46 @@
+name: Refresh FLH Article Library
+
+on:
+  workflow_dispatch:
+    inputs:
+      asset_id:
+        description: "Published FLH Mini Asset ID to add to the library"
+        required: true
+        type: string
+      confirm:
+        description: "Type UPDATE to confirm"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    if: ${{ inputs.confirm == 'UPDATE' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: pip install --disable-pip-version-check google-api-python-client google-auth
+      - name: Add published Mini to FLH Articles
+        env:
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.FLH_GOOGLE_SERVICE_ACCOUNT_JSON }}
+          FLH_PUBLISHING_SHEET_ID: 1ZkXrlRelnaCV9OdQcv2IqX_jSJ-ke2C47u2myZGeHnQ
+          FLH_ASSET_ID: ${{ inputs.asset_id }}
+          FLH_ARTICLE_TYPE: Mini
+        run: python scripts/update_flh_library.py
+      - name: Commit library update
+        run: |
+          git add read-florida.html
+          if git diff --cached --quiet; then
+            echo "No library change needed."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "List ${{ inputs.asset_id }} in FLH Articles"
+          git push
