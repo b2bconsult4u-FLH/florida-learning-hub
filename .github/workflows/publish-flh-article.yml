@@ -1,4 +1,4 @@
-name: Publish FLH Article
+name: Publish FLH Mini Article
 
 on:
   workflow_dispatch:
@@ -7,14 +7,6 @@ on:
         description: "FLH Asset ID to publish (example: FLH-0320)"
         required: true
         type: string
-      article_type:
-        description: "Article type"
-        required: true
-        default: "Mini"
-        type: choice
-        options:
-          - Mini
-          - Full Article
       confirm_publish:
         description: "Type PUBLISH to confirm this controlled run"
         required: true
@@ -41,15 +33,15 @@ jobs:
       - name: Install publisher dependencies
         run: pip install --disable-pip-version-check google-api-python-client google-auth python-docx requests
 
-      - name: Publish one explicitly selected approved article
+      - name: Publish one explicitly selected approved Mini article
         env:
           GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.FLH_GOOGLE_SERVICE_ACCOUNT_JSON }}
           FLH_PUBLISHING_SHEET_ID: 1ZkXrlRelnaCV9OdQcv2IqX_jSJ-ke2C47u2myZGeHnQ
           FLH_ASSET_ID: ${{ inputs.asset_id }}
-          FLH_ARTICLE_TYPE: ${{ inputs.article_type }}
+          FLH_ARTICLE_TYPE: Mini
         run: python scripts/publish_flh_article.py
 
-      - name: Commit generated article
+      - name: Commit generated Mini article
         run: |
           if git diff --quiet; then
             echo "No repository changes produced."
@@ -58,5 +50,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
-          git commit -m "Publish ${{ inputs.asset_id }} ${{ inputs.article_type }}"
+          git commit -m "Publish ${{ inputs.asset_id }} Mini"
           git push
