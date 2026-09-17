@@ -15,7 +15,7 @@ from googleapiclient.http import MediaIoBaseDownload
 SHEET_ID = os.environ["FLH_PUBLISHING_SHEET_ID"]
 ASSET_ID = os.environ["FLH_ASSET_ID"].strip()
 ARTICLE_TYPE = os.environ["FLH_ARTICLE_TYPE"].strip()
-SHEET_RANGE = "Untitled!A:U"
+SHEET_RANGE = "Untitled!A:Z"
 NS = {
     "w": "http://schemas.openxmlformats.org/wordprocessingml/2006/main",
     "a": "http://schemas.openxmlformats.org/drawingml/2006/main",
@@ -86,7 +86,6 @@ def extract_blocks(z, root, rels, asset_dir, slug):
             if not txt:
                 continue
             style = style_of(el).lower()
-            # Captions immediately following an embedded image stay attached to that image.
             if last_figure is not None and ("caption" in style or txt.lower().startswith(("image:", "photo:", "map:"))):
                 last_figure["caption"] = txt
                 last_figure = None
@@ -120,9 +119,30 @@ def extract_blocks(z, root, rels, asset_dir, slug):
     return blocks
 
 
-def render_blocks(blocks, sheet_title, asset_id, article_type, pillar):
-    # Use the tracker title as canonical H1; suppress duplicate document title lines.
-    title_seen = False
+def public_blocks(blocks, sheet_title, asset_id):
+    """Strip production-only material from the DOCX publication package."""
+    cleaned = []
+    for b in blocks:
+        text = b.get("text", "").strip()
+        if b["kind"] in ("h2", "h3") and text.casefold() in {
+            "internal publishing block", "internal publishing", "publishing block"
+        }:
+            break
+        if b["kind"] == "p":
+            normalized = re.sub(r"\s+", " ", text)
+            if normalized in {sheet_title, asset_id}:
+                continue
+            if normalized.startswith(asset_id) and "Mini Article" in normalized:
+                continue
+            if normalized in {"The Lightsey Family", "Eight Generations of Cattle, Land, and Conservation in Central Florida"}:
+                continue
+            if normalized.startswith("© 2026 Wm. E. McMullen"):
+                continue
+        cleaned.append(b)
+    return cleaned
+
+
+def render_blocks(blocks, sheet_title):
     html = []
     in_list = False
     for b in blocks:
@@ -131,8 +151,6 @@ def render_blocks(blocks, sheet_title, asset_id, article_type, pillar):
             html.append("</ul>")
             in_list = False
         if k == "title":
-            if not title_seen:
-                title_seen = True
             continue
         if k == "subtitle":
             html.append(f'<p class="subtitle">{escape(b["text"])}</p>')
@@ -141,9 +159,6 @@ def render_blocks(blocks, sheet_title, asset_id, article_type, pillar):
         elif k == "h3":
             html.append(f'<h3>{escape(b["text"])}</h3>')
         elif k == "p":
-            # Skip common production labels already represented by page metadata.
-            if b["text"].strip() in (sheet_title, asset_id):
-                continue
             html.append(f'<p>{escape(b["text"])}</p>')
         elif k == "li":
             if not in_list:
@@ -174,6 +189,7 @@ def main():
         info = json.loads(raw)
     except json.JSONDecodeError:
         fail("FLH_GOOGLE_SERVICE_ACCOUNT_JSON is not valid JSON.")
+
     creds = service_account.Credentials.from_service_account_info(info, scopes=[
         "https://www.googleapis.com/auth/spreadsheets",
         "https://www.googleapis.com/auth/drive.readonly",
@@ -192,6 +208,7 @@ def main():
     for field, expected in {"Status":"Ready to Publish", "Illustration Status":"Complete", "IP Gate Passed":"Yes"}.items():
         if row.get(field, "").strip().casefold() != expected.casefold():
             fail(f"{field} must be '{expected}', found '{row.get(field, '')}'.")
+
     file_id = row.get("Drive File ID", "").strip()
     if not file_id:
         fail("Drive File ID is blank.")
@@ -204,27 +221,30 @@ def main():
     done = False
     while not done:
         _, done = dl.next_chunk()
-    data = fh.getvalue()
-    z, root, rels = load_docx(data)
+
+    z, root, rels = load_docx(fh.getvalue())
     title = row.get("Title", "").strip() or ASSET_ID
     slug = row.get("Slug", "").strip() or slugify(title)
-    # Full and Mini must never collide. Full gets the canonical title slug; Mini is explicit.
-    if ARTICLE_TYPE.casefold() == "mini":
+    if ARTICLE_TYPE.casefold() == "mini" and not slug.endswith("-mini"):
         slug += "-mini"
     out = Path(f"{slug}.html")
     if out.exists():
         fail(f"Destination {out} already exists; automatic overwrite is disabled.")
+
     blocks = extract_blocks(z, root, rels, Path("assets/articles"), slug)
     figures = [b for b in blocks if b["kind"] == "figure"]
     if not figures:
         fail("Approved DOCX contains no embedded image; publication stopped.")
-    body = render_blocks(blocks, title, ASSET_ID, ARTICLE_TYPE, row.get("Pillar/Series", ""))
-    description = f"{title} — a Florida Learning Hub article about Florida history."
+    blocks = public_blocks(blocks, title, ASSET_ID)
+    body = render_blocks(blocks, title)
+
+    description = row.get("Meta Description", "").strip() or f"{title} — a Florida Learning Hub article about Florida history."
+    seo_title = row.get("SEO Title", "").strip() or title
     canonical = f"https://floridalearninghub.org/{slug}.html"
     og_image = "https://floridalearninghub.org/" + figures[0]["src"]
-    page = f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="{escape(description, quote=True)}"><title>{escape(title)} | Florida Learning Hub</title><link rel="stylesheet" href="style.css?v=20260913-7"><link rel="canonical" href="{canonical}"><meta name="author" content="Wm. E. McMullen II"><meta property="og:locale" content="en_US"><meta property="og:type" content="article"><meta property="og:site_name" content="Florida Learning Hub"><meta property="og:title" content="{escape(title, quote=True)} | Florida Learning Hub"><meta property="og:description" content="{escape(description, quote=True)}"><meta property="og:url" content="{canonical}"><meta property="og:image" content="{og_image}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{escape(title, quote=True)} | Florida Learning Hub"><meta name="twitter:description" content="{escape(description, quote=True)}"><meta name="twitter:image" content="{og_image}"></head><body><div class="site"><header class="header"><a href="index.html"><img src="assets/flh-header.png" alt="Florida Learning Hub"></a></header><button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav"><span aria-hidden="true">☰</span><span>Menu</span></button><nav class="nav" id="primary-nav" aria-label="Primary navigation"><a href="read-florida.html" aria-current="page">FLH Articles</a><a href="discover-pioneer-florida.html">Discover Pioneer Florida</a><a href="teach-pioneer-florida.html">Teach Pioneer Florida</a><a href="classroom-resources.html">Classroom Resources</a><a href="stories-and-books.html">Florida History Books</a><a href="today-in-florida-history.html">Today in Florida History</a></nav><main><section class="article"><div class="kicker">{escape(row.get("Pillar/Series", "Florida History"))} · {escape(ASSET_ID)}</div><h1>{escape(title)}</h1><p class="article-meta">Florida Learning Hub · {escape(ARTICLE_TYPE)}</p>{body}<p class="article-meta" style="text-align:center;margin-top:2rem;">Written by Wm. E. McMullen II<br>Published by Florida Learning Hub<br>FloridaLearningHub.org<br>© 2026 Florida Learning Hub. All rights reserved.</p></section></main><footer class="footer"><nav class="footer-links" aria-label="Footer navigation"><a href="index.html">Home</a><a href="read-florida.html">FLH Articles</a><a href="teach-pioneer-florida.html">Teachers</a><a href="classroom-resources.html">Classroom Resources</a><a href="stories-and-books.html">Florida History Books</a><a href="today-in-florida-history.html">Today in Florida History</a></nav><nav class="footer-links footer-trust-links" aria-label="About and editorial policies"><a href="about-flh.html">About FLH</a><a href="about-author.html">About the Author</a><a href="research-standards.html">Research Standards</a><a href="image-copyright-policy.html">Image &amp; Copyright</a><a href="corrections-policy.html">Corrections</a></nav><div>© 2026 Florida Learning Hub · Preserving Florida’s history, culture, agriculture, wildlife, and pioneer heritage.</div></footer></div><button class="back-to-top" type="button" aria-label="Back to top" title="Back to top"><span aria-hidden="true">↑</span> Top</button><script src="back-to-top.js?v=20260911-1" defer></script><script src="site-navigation.js?v=20260913-8" defer></script><script src="article-trust.js?v=20260913-2" defer></script></body></html>'''
+    page = f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="{escape(description, quote=True)}"><title>{escape(seo_title)} | Florida Learning Hub</title><link rel="stylesheet" href="style.css?v=20260913-7"><link rel="canonical" href="{canonical}"><meta name="author" content="Wm. E. McMullen II"><meta property="og:locale" content="en_US"><meta property="og:type" content="article"><meta property="og:site_name" content="Florida Learning Hub"><meta property="og:title" content="{escape(seo_title, quote=True)} | Florida Learning Hub"><meta property="og:description" content="{escape(description, quote=True)}"><meta property="og:url" content="{canonical}"><meta property="og:image" content="{og_image}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{escape(seo_title, quote=True)} | Florida Learning Hub"><meta name="twitter:description" content="{escape(description, quote=True)}"><meta name="twitter:image" content="{og_image}"></head><body><div class="site"><header class="header"><a href="index.html"><img src="assets/flh-header.png" alt="Florida Learning Hub"></a></header><button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav"><span aria-hidden="true">☰</span><span>Menu</span></button><nav class="nav" id="primary-nav" aria-label="Primary navigation"><a href="read-florida.html" aria-current="page">FLH Articles</a><a href="discover-pioneer-florida.html">Discover Pioneer Florida</a><a href="teach-pioneer-florida.html">Teach Pioneer Florida</a><a href="classroom-resources.html">Classroom Resources</a><a href="stories-and-books.html">Florida History Books</a><a href="today-in-florida-history.html">Today in Florida History</a></nav><main><section class="article"><div class="kicker">{escape(row.get("Pillar/Series", "Florida History"))} · {escape(ASSET_ID)}</div><h1>{escape(title)}</h1><p class="article-meta">Florida Learning Hub · {escape(ARTICLE_TYPE)}</p>{body}<p class="article-meta" style="text-align:center;margin-top:2rem;">Written by Wm. E. McMullen II<br>Published by Florida Learning Hub<br>FloridaLearningHub.org<br>© 2026 Florida Learning Hub. All rights reserved.</p></section></main><footer class="footer"><nav class="footer-links" aria-label="Footer navigation"><a href="index.html">Home</a><a href="read-florida.html">FLH Articles</a><a href="teach-pioneer-florida.html">Teachers</a><a href="classroom-resources.html">Classroom Resources</a><a href="stories-and-books.html">Florida History Books</a><a href="today-in-florida-history.html">Today in Florida History</a></nav><nav class="footer-links footer-trust-links" aria-label="About and editorial policies"><a href="about-flh.html">About FLH</a><a href="about-author.html">About the Author</a><a href="research-standards.html">Research Standards</a><a href="image-copyright-policy.html">Image &amp; Copyright</a><a href="corrections-policy.html">Corrections</a></nav><div>© 2026 Florida Learning Hub · Preserving Florida’s history, culture, agriculture, wildlife, and pioneer heritage.</div></footer></div><button class="back-to-top" type="button" aria-label="Back to top" title="Back to top"><span aria-hidden="true">↑</span> Top</button><script src="back-to-top.js?v=20260911-1" defer></script><script src="site-navigation.js?v=20260913-8" defer></script><script src="article-trust.js?v=20260913-2" defer></script></body></html>'''
     out.write_text(page, encoding="utf-8")
-    print(f"READY: generated {out} with {len(figures)} embedded approved image(s).")
+    print(f"READY: generated {out} with {len(figures)} embedded approved image(s); production metadata excluded from public HTML.")
 
 
 if __name__ == "__main__":
