@@ -1,27 +1,30 @@
 name: Publish FLH Mini Article
 
 on:
+  schedule:
+    - cron: '*/10 * * * *'
   workflow_dispatch:
     inputs:
       asset_id:
-        description: "FLH Asset ID to publish (example: FLH-0320)"
-        required: true
+        description: "Optional FLH Asset ID for a controlled manual run"
+        required: false
         type: string
       confirm_publish:
-        description: "Type PUBLISH to confirm this controlled run"
-        required: true
+        description: "Type PUBLISH for a controlled manual run"
+        required: false
         type: string
 
 permissions:
   contents: write
 
+concurrency:
+  group: flh-publisher
+  cancel-in-progress: false
+
 jobs:
   publish:
-    if: ${{ inputs.confirm_publish == 'PUBLISH' }}
+    if: ${{ github.event_name == 'schedule' || inputs.confirm_publish == 'PUBLISH' }}
     runs-on: ubuntu-latest
-    concurrency:
-      group: flh-publisher
-      cancel-in-progress: false
     steps:
       - uses: actions/checkout@v4
 
@@ -33,42 +36,51 @@ jobs:
       - name: Install publisher dependencies
         run: pip install --disable-pip-version-check google-api-python-client google-auth python-docx requests
 
-      - name: Publish one explicitly selected approved Mini article
+      - name: Find eligible approved Mini articles
+        id: queue
         env:
           GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.FLH_GOOGLE_SERVICE_ACCOUNT_JSON }}
           FLH_PUBLISHING_SHEET_ID: 1ZkXrlRelnaCV9OdQcv2IqX_jSJ-ke2C47u2myZGeHnQ
-          FLH_ASSET_ID: ${{ inputs.asset_id }}
-          FLH_ARTICLE_TYPE: Mini
-        run: python scripts/publish_flh_article.py
-
-      - name: Add Mini to FLH Article Library
-        env:
-          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.FLH_GOOGLE_SERVICE_ACCOUNT_JSON }}
-          FLH_PUBLISHING_SHEET_ID: 1ZkXrlRelnaCV9OdQcv2IqX_jSJ-ke2C47u2myZGeHnQ
-          FLH_ASSET_ID: ${{ inputs.asset_id }}
-          FLH_ARTICLE_TYPE: Mini
-        run: python scripts/update_flh_library.py
-
-      - name: Commit article, image, and library listing
-        id: publish_commit
+          MANUAL_ASSET_ID: ${{ inputs.asset_id }}
         run: |
-          git add -A
-          if git diff --cached --quiet; then
-            echo "No repository changes produced."
-            echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          if [ -n "$MANUAL_ASSET_ID" ]; then
+            printf '%s\n' "$MANUAL_ASSET_ID" > /tmp/flh_queue.txt
+          else
+            python scripts/list_ready_flh_minis.py > /tmp/flh_queue.txt
+          fi
+          echo "Eligible queue:"
+          cat /tmp/flh_queue.txt || true
+
+      - name: Publish eligible Mini articles
+        env:
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.FLH_GOOGLE_SERVICE_ACCOUNT_JSON }}
+          FLH_PUBLISHING_SHEET_ID: 1ZkXrlRelnaCV9OdQcv2IqX_jSJ-ke2C47u2myZGeHnQ
+        run: |
+          if [ ! -s /tmp/flh_queue.txt ]; then
+            echo "No eligible Mini articles. Nothing to publish."
             exit 0
           fi
+
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "Publish ${{ inputs.asset_id }} Mini"
-          git push
-          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
-      - name: Write successful publication back to Publishing Control Sheet
-        env:
-          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.FLH_GOOGLE_SERVICE_ACCOUNT_JSON }}
-          FLH_PUBLISHING_SHEET_ID: 1ZkXrlRelnaCV9OdQcv2IqX_jSJ-ke2C47u2myZGeHnQ
-          FLH_ASSET_ID: ${{ inputs.asset_id }}
-          FLH_ARTICLE_TYPE: Mini
-          FLH_PUBLISH_COMMIT_SHA: ${{ steps.publish_commit.outputs.sha }}
-        run: python scripts/writeback_flh_publication.py
+          while IFS= read -r asset_id; do
+            [ -z "$asset_id" ] && continue
+            echo "=== Publishing $asset_id ==="
+            export FLH_ASSET_ID="$asset_id"
+            export FLH_ARTICLE_TYPE="Mini"
+
+            python scripts/publish_flh_article.py
+            python scripts/update_flh_library.py
+
+            git add -A
+            if git diff --cached --quiet; then
+              echo "BLOCKED: $asset_id produced no repository changes."
+              exit 1
+            fi
+
+            git commit -m "Publish $asset_id Mini"
+            git push
+            export FLH_PUBLISH_COMMIT_SHA="$(git rev-parse HEAD)"
+            python scripts/writeback_flh_publication.py
+          done < /tmp/flh_queue.txt
