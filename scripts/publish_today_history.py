@@ -27,8 +27,22 @@ def main():
     marker='<section class="article">'
     entry=f'''<h2>Featured Entry — {item["display_date"]}</h2><h2>{item["display_date"]} — {item["title"]}</h2><p>{item["summary"]}</p><p><a class="btn" href="{item["live_file"]}">Read {item["display_date"]}: {item["link_title"]}</a></p><hr>'''
     if f'href="{item["live_file"]}"' not in archive:
-        archive=archive.replace(marker,marker+entry,1)
-    archive=archive.replace("Featured Entry — "+data.get("last_featured",""),"Featured Entry — "+item["display_date"],1) if data.get("last_featured") else archive
+        pos=archive.find(marker)
+        if pos == -1:
+            raise SystemExit("Today archive section marker not found")
+        insert_at=pos+len(marker)
+        old_start=archive.find("<h2>Featured Entry — ",insert_at)
+        if old_start != -1:
+            old_end=archive.find("<hr>",old_start)
+            if old_end != -1:
+                old_feature=archive[old_start:old_end+4]
+                archive=archive[:old_start]+archive[old_end+4:]
+                insert_at=archive.find(marker)+len(marker)
+                archive=archive[:insert_at]+entry+old_feature+archive[insert_at:]
+            else:
+                archive=archive[:insert_at]+entry+archive[insert_at:]
+        else:
+            archive=archive[:insert_at]+entry+archive[insert_at:]
     ARCHIVE.write_text(archive)
     home=HOME.read_text()
     start=home.find('<div class="panel"><div class="kicker">Today in Florida History')
