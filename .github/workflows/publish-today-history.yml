@@ -34,6 +34,8 @@ jobs:
         env:
           FLH_TODAY: ${{ inputs.publish_date }}
         run: python scripts/publish_today_history.py
+      - name: Refresh sitemap
+        run: node scripts/generate-sitemap.mjs
       - name: Commit publication
         run: |
           if git diff --quiet && [ -z "$(git ls-files --others --exclude-standard 'today-*.html')" ]; then
@@ -42,6 +44,6 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add today-in-florida-history.html index.html today-history-queue/manifest.json today-*.html
+          git add today-in-florida-history.html index.html sitemap.xml today-history-queue/manifest.json today-*.html
           git commit -m "Publish Today in Florida History"
           git push
