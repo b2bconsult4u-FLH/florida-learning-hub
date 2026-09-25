@@ -47,3 +47,5 @@ jobs:
           git add today-in-florida-history.html index.html sitemap.xml today-history-queue/manifest.json today-*.html
           git commit -m "Publish Today in Florida History"
           git push
+
+# Recovery validation: 2026-09-25
