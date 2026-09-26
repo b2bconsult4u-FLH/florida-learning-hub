@@ -33,34 +33,6 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Publish approved Today in Florida History entry
-        if: ${{ github.event_name == 'schedule' }}
-        run: |
-          FLH_LOCAL_DATE="$(TZ=America/New_York date +%F)"
-          FLH_LOCAL_HOUR="$(TZ=America/New_York date +%H)"
-          FLH_START_HOUR=7
-          if [[ "$FLH_LOCAL_DATE" > "2026-09-27" ]]; then
-            FLH_START_HOUR=6
-          fi
-
-          if (( 10#$FLH_LOCAL_HOUR < FLH_START_HOUR )); then
-            echo "Today publisher waiting until ${FLH_START_HOUR}:00 Eastern."
-          else
-            python scripts/publish_today_history.py
-            node scripts/generate-sitemap.mjs
-
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add today-in-florida-history.html index.html sitemap.xml today-history-queue/manifest.json today-*.html
-
-            if git diff --cached --quiet; then
-              echo "No approved Today in Florida History publication due."
-            else
-              git commit -m "Publish Today in Florida History"
-              git push
-            fi
-          fi
-
       - name: Install publisher dependencies
         run: pip install --disable-pip-version-check google-api-python-client google-auth python-docx requests
 
