@@ -2,8 +2,8 @@ name: Publish Today in Florida History
 
 on:
   schedule:
-    # Fixed UTC schedule: 6:15 AM EDT / 5:15 AM EST — always before the work/school day.
-    - cron: '15 10 * * *'
+    # Fixed UTC schedule: 5:15 AM EDT / 4:15 AM EST — always before the work/school day.
+    - cron: '15 9 * * *'
   workflow_dispatch:
     inputs:
       publish_date:
