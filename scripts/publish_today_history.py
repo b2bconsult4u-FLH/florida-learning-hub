@@ -3,6 +3,7 @@
 import json
 import os
 import re
+from html import escape
 from datetime import date, datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -46,9 +47,26 @@ def main():
         raise ValueError('Archive section marker not found')
     entry = f'<h2>Featured Entry — {item["display_date"]}</h2><h2>{item["display_date"]} — {item["title"]}</h2><p>{item["summary"]}</p><p><a class="btn" href="{item["live_file"]}">Read {item["display_date"]}: {item["link_title"]}</a></p><hr>'
     link = f'href="{item["live_file"]}"'
-    if archive.count(link) > 1:
+    archive_links = archive.split('<!-- history-months:start -->', 1)[-1] if '<!-- history-months:start -->' in archive else archive
+    if archive_links.count(link) > 1:
         raise ValueError('Duplicate archive links detected')
-    if link not in archive:
+    if '<!-- history-feature:start -->' in archive:
+        archive = re.sub(r'<!-- history-feature:start -->.*?<!-- history-feature:end -->', '<!-- history-feature:start -->' + entry.removesuffix('<hr>') + '<!-- history-feature:end -->', archive, count=1, flags=re.S)
+        if link not in archive[archive.index('<!-- history-months:start -->'):]:
+            month, day = item['display_date'].rsplit(' ', 1)
+            row = f'<li data-day="{int(day)}"><a href="{item["live_file"]}"><strong>{item["display_date"]}</strong> — {escape(item["title"])}</a></li>'
+            month_id = 'history-' + month.lower()
+            pattern = rf'(<details class="history-month" id="{month_id}"[^>]*><summary>)(.*?)(</summary><ul class="history-date-list">)(.*?)(</ul></details>)'
+            match = re.search(pattern, archive, re.S)
+            if match:
+                rows = re.findall(r'<li data-day="\d+">.*?</li>', match[4], re.S) + [row]
+                rows.sort(key=lambda r: int(re.search(r'data-day="(\d+)"', r)[1]))
+                block = match[1] + f'{month} — {len(rows)} stories' + match[3] + ''.join(rows) + match[5]
+                archive = archive[:match.start()] + block + archive[match.end():]
+            else:
+                block = f'<details class="history-month" id="{month_id}" open><summary>{month} — 1 stories</summary><ul class="history-date-list">{row}</ul></details>'
+                archive = archive.replace('<!-- history-months:start -->', '<!-- history-months:start -->' + block, 1)
+    elif link not in archive:
         archive = archive.replace(marker, marker + entry, 1)
     panel = f'<div class="panel"><div class="kicker">Today in Florida History · {item["display_date"]}</div><h2>{item["title"]}</h2><p>{item["summary"]}</p><p><a class="btn" href="{item["live_file"]}">Read: {item["link_title"]}</a></p></div>'
     home = replace_panel(home, panel)
