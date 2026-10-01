@@ -1,12 +1,28 @@
 name: Publish Today in Florida History
 
 on:
+  schedule:
+    - cron: '17 3 * * *'
+      timezone: America/New_York
+    - cron: '23 4 * * *'
+      timezone: America/New_York
+    - cron: '41 5 * * *'
+      timezone: America/New_York
+    - cron: '17 6 * * *'
+      timezone: America/New_York
   workflow_dispatch:
     inputs:
       publish_date:
-        description: "Optional YYYY-MM-DD date for controlled manual recovery"
+        description: Optional YYYY-MM-DD date for controlled manual recovery
         required: false
         type: string
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/publish-today-history.yml'
+      - 'scripts/publish_today_history.py'
+      - 'scripts/verify_today_history.py'
+      - 'scripts/test_today_history.py'
 
 permissions:
   contents: write
@@ -18,25 +34,32 @@ concurrency:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      FLH_TODAY: ${{ inputs.publish_date }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Test publication safeguards
+        run: python scripts/test_today_history.py
       - name: Publish approved dated entry
-        env:
-          FLH_TODAY: ${{ inputs.publish_date }}
         run: python scripts/publish_today_history.py
       - name: Refresh sitemap
         run: node scripts/generate-sitemap.mjs
-      - name: Commit publication
+      - name: Commit publication atomically
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add today-in-florida-history.html index.html sitemap.xml today-history-queue/manifest.json today-*.html
-          if git diff --cached --quiet; then
-            echo "No Today in Florida History publication due."
-            exit 0
+          if ! git diff --cached --quiet; then
+            git commit -m "Publish Today in Florida History"
+            git push origin HEAD:main
           fi
-          git commit -m "Publish Today in Florida History"
-          git push
+          git fetch origin main
+          test "$(git rev-parse HEAD)" = "$(git rev-parse origin/main)"
+      - name: Verify live Cloudflare publication
+        run: python scripts/verify_today_history.py
