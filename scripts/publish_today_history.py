@@ -34,8 +34,7 @@ def main():
     data = json.loads(manifest.read_text())
     item = due_item(data, today)
     if not item:
-        print(f'No approved entry due {today}; no publication changes.')
-        return
+        raise ValueError(f'No approved entry due {today}; queue needs attention. No publication changes.')
     staged = ROOT / 'today-history-queue' / item['staged_file']
     live = ROOT / item['live_file']
     if not staged.is_file():

@@ -23,6 +23,8 @@ on:
       - 'scripts/publish_today_history.py'
       - 'scripts/verify_today_history.py'
       - 'scripts/test_today_history.py'
+      - 'today-history-queue/manifest.json'
+      - 'today-history-queue/*.html'
 
 permissions:
   contents: write

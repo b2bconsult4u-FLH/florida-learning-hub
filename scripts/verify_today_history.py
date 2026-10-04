@@ -4,6 +4,7 @@ import json
 import os
 import time
 import urllib.request
+from html import unescape
 from datetime import datetime
 from zoneinfo import ZoneInfo
 from publish_today_history import ROOT, due_item
@@ -21,7 +22,7 @@ def verify(item, fetch):
     failures = []
     for name, url, needles in checks(item):
         try:
-            body = fetch(url)
+            body = unescape(fetch(url))
             if not all(n in body for n in needles):
                 failures.append(name + ': expected publication content missing')
         except Exception as exc:

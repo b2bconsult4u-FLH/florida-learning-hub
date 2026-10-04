@@ -51,5 +51,23 @@ class PublicationTests(unittest.TestCase):
         bodies = {url: '\n'.join(needles) for _, url, needles in verification.checks(item)}
         self.assertEqual(verification.verify(item, bodies.__getitem__), [])
 
+    def test_missing_queue_entry_fails_without_writes(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            (root / 'today-history-queue').mkdir()
+            manifest = root / 'today-history-queue/manifest.json'
+            manifest.write_text(json.dumps({'entries': []}))
+            before = manifest.read_bytes()
+            with patch.object(publish, 'ROOT', root), patch.dict(os.environ, FLH_TODAY='2026-10-12'):
+                with self.assertRaisesRegex(ValueError, 'No approved entry due'):
+                    publish.main()
+            self.assertEqual(before, manifest.read_bytes())
+            self.assertEqual(list(root.glob('*.html')), [])
+
+    def test_verifier_accepts_escaped_apostrophe_in_title(self):
+        item = dict(title="Florida's Story", display_date='October 8', live_file='today-story.html')
+        bodies = {url: '\n'.join(needles).replace("'", '&#x27;') for _, url, needles in verification.checks(item)}
+        self.assertEqual(verification.verify(item, bodies.__getitem__), [])
+
 if __name__ == '__main__':
     unittest.main()
