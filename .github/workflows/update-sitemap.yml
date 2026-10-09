@@ -5,20 +5,32 @@ on:
     paths:
       - "*.html"
       - "scripts/generate-sitemap.mjs"
+      - ".github/workflows/update-sitemap.yml"
 permissions:
   contents: write
+concurrency:
+  group: sitemap-main
+  cancel-in-progress: false
 jobs:
   sitemap:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Generate sitemap
-        run: node scripts/generate-sitemap.mjs
-      - name: Commit sitemap when changed
+      - name: Generate and commit sitemap when changed
         run: |
-          if git diff --quiet -- sitemap.xml; then exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add sitemap.xml
-          git commit -m "Update sitemap"
-          git push
+          for attempt in 1 2 3 4 5; do
+            # This disposable checkout contains only this job's generated changes.
+            # Rebuild from current main rather than pushing an outdated sitemap.
+            git fetch origin main
+            git reset --hard origin/main
+            node scripts/generate-sitemap.mjs
+            if git diff --quiet -- sitemap.xml; then exit 0; fi
+            git add sitemap.xml
+            git commit -m "Update sitemap"
+            if git push origin HEAD:main; then exit 0; fi
+            echo "Push failed; refreshing main and regenerating (attempt $attempt/5)."
+          done
+          echo "::error::Unable to publish sitemap after 5 attempts."
+          exit 1
