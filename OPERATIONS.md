@@ -79,3 +79,9 @@ The enabled ChatGPT Work task "Publish and Verify FLH" runs at 8:15 a.m. Eastern
 These Workers are source code pending deployment. KV namespace IDs and runtime secrets must be configured. Clock and watchdog share Cloudflare and KV; Healthchecks provides the external silence detector. The 8:15 Eastern ChatGPT Work task "Publish and Verify FLH" was located and is enabled; preserve it as a backstop.
 
 The status report counts observations, not proven publication times. It does not certify the 14-day acceptance test. Correlate article/date, GitHub run IDs, caller labels, actors and event types before counting an unattended day. Caller labels are descriptive, not authentication. Missing approved content is unhealthy. The 7:05 check initiates recovery; unresolved publication alerts escalate at 7:35. Clock failures alert immediately. All requests have 15-second timeouts.
+
+## Deployment through GitHub Actions
+
+The manual workflow `Deploy FLH publication clock and watchdog` performs a credential preflight, runs tests, creates or reuses `flh-publication-state` KV, deploys each Worker without cron, installs its secrets, then enables and reads back its schedule. It does not run until explicitly started.
+
+Required repository Actions secrets: `CLOUDFLARE_API_TOKEN` (scoped to FLH account with Workers Scripts Edit and Workers KV Storage Edit), `CLOUDFLARE_ACCOUNT_ID`, `FLH_DISPATCH_TOKEN` (fine-grained GitHub token scoped to this repository, Actions write and Contents read), `HC_CLOCK_URL`, `HC_WATCHDOG_URL`, `NTFY_TOPIC`, and `STATUS_TOKEN`. Secrets must be entered through the provider's secure UI, never in source or chat. Missing secrets stop deployment before changes.
