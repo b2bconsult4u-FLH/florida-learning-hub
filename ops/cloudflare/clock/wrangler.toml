@@ -1,0 +1,14 @@
+name = "flh-publish-clock"
+main = "src/index.mjs"
+compatibility_date = "2025-06-01"
+
+# UTC. 07:00-13:59 UTC covers 3:00 a.m.-9:59 a.m. Eastern in EDT and 2:00-8:59 a.m. in EST.
+# The Worker reads Eastern time itself, so the Nov 1 DST change needs no edit.
+[triggers]
+crons = ["*/10 7-13 * * *"]
+
+[[kv_namespaces]]
+binding = "FLH_STATE"
+id = "REPLACE_WITH_KV_NAMESPACE_ID"   # same namespace as the watchdog
+
+# Secrets (wrangler secret put): GITHUB_TOKEN, HC_CLOCK_URL

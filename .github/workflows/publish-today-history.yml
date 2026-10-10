@@ -16,6 +16,11 @@ on:
         description: Optional YYYY-MM-DD date for controlled manual recovery
         required: false
         type: string
+      trigger_source:
+        description: Caller label; correlate with actor and run ID for attribution
+        required: false
+        default: manual
+        type: string
   push:
     branches: [main]
     paths:
@@ -40,6 +45,24 @@ jobs:
     env:
       FLH_TODAY: ${{ inputs.publish_date }}
     steps:
+      - name: Record how this run was triggered
+        env:
+          EVENT: ${{ github.event_name }}
+          SCHEDULE: ${{ github.event.schedule }}
+          SOURCE: ${{ inputs.trigger_source }}
+          RUN_ID: ${{ github.run_id }}
+          ACTOR: ${{ github.triggering_actor }}
+        run: |
+          {
+            echo "### Publication trigger record"
+            echo "- run ID: $RUN_ID"
+            echo "- caller label: ${SOURCE:-n/a}"
+            echo "- event: $EVENT"
+            echo "- cron slot (if scheduled): ${SCHEDULE:-n/a}"
+            echo "- actor: $ACTOR"
+            echo "- run started (UTC): $(date -u +%FT%TZ)"
+            echo "- run started (Eastern): $(TZ=America/New_York date +%FT%T%z)"
+          } >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/checkout@v4
         with:
           ref: main

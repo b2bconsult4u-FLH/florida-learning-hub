@@ -1,0 +1,2 @@
+{ "name": "flh-ops-cloudflare", "private": true, "type": "module",
+  "scripts": { "test": "node --test test/ops.test.mjs" } }

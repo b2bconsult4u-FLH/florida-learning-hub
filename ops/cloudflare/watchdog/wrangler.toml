@@ -1,0 +1,14 @@
+name = "flh-publish-watchdog"
+main = "src/index.mjs"
+compatibility_date = "2025-06-01"
+
+# 11:05/11:35 and 12:05/12:35 UTC. The Worker acts only when Eastern hour == 7
+# (7:05/7:35 a.m. EDT uses the 11:xx ticks; 7:05/7:35 a.m. EST uses the 12:xx ticks).
+[triggers]
+crons = ["5,35 11,12 * * *"]
+
+[[kv_namespaces]]
+binding = "FLH_STATE"
+id = "REPLACE_WITH_KV_NAMESPACE_ID"
+
+# Secrets (wrangler secret put): GITHUB_TOKEN, HC_WATCHDOG_URL, NTFY_TOPIC, STATUS_TOKEN
