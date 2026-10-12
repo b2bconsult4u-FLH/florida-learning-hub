@@ -75,3 +75,17 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #ac
 /* Keep only the original oak silhouette in the compact masthead crop. */
 .brand-tree{clip-path:polygon(0 0,100% 0,100% 74%,70% 74%,70% 100%,30% 100%,30% 74%,0 74%)}
 .visitor-pathway .pathway-action span{color:inherit}
+
+/* FLH editorial article-library refresh — 2026-10-12 */
+.article-library-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;align-items:stretch}
+.article-library-card{padding:0 0 20px;overflow:hidden;border-radius:12px;box-shadow:0 5px 18px rgba(31,63,48,.09);background:#fffdf8;transition:box-shadow .18s ease,transform .18s ease}
+.article-library-card:hover{box-shadow:0 9px 23px rgba(31,63,48,.15);transform:translateY(-2px)}
+.article-library-card .library-card-hero{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;margin-bottom:15px}
+.article-library-card .kicker{padding:0 20px;font-size:11px;letter-spacing:.9px;color:#087f80}
+.article-library-card h2{padding:0 20px;font-size:clamp(21px,2vw,27px);line-height:1.18;margin:9px 0}
+.article-library-card p{padding:0 20px;font-size:15px;line-height:1.55;margin:0 0 20px;-webkit-line-clamp:4}
+.article-library-card .btn{margin: auto 20px 0;align-self:flex-start;border-radius:5px;background:#007d85;border-color:#007d85;color:#fff;padding:10px 15px;font-weight:700}
+.article-library-card .btn:hover{background:#005d64;color:#fff}
+@media(max-width:900px){.article-library-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.article-library-grid{grid-template-columns:minmax(0,1fr)}.article-library-card h2{font-size:24px}}
+@media(prefers-reduced-motion:reduce){.article-library-card{transition:none}.article-library-card:hover{transform:none}}
