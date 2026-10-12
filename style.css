@@ -75,3 +75,9 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #ac
 /* Keep only the original oak silhouette in the compact masthead crop. */
 .brand-tree{clip-path:polygon(0 0,100% 0,100% 74%,70% 74%,70% 100%,30% 100%,30% 74%,0 74%)}
 .visitor-pathway .pathway-action span{color:inherit}
+
+/* Article catalog thumbnails reuse each article's credited illustration. */
+.article-library-card .article-card-image-link{display:block;margin:-16px -16px 14px;overflow:hidden;border-radius:7px 7px 0 0;flex:none;background:var(--aqua)}
+.article-library-card .article-card-image{display:block;width:100%;height:auto;aspect-ratio:2/1;object-fit:cover}
+.article-library-card .article-card-image-link:hover .article-card-image{filter:brightness(1.04)}
+@media(max-width:560px){.article-library-card .article-card-image-link{margin:-15px -15px 14px}}

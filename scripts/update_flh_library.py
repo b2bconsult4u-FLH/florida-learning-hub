@@ -41,6 +41,46 @@ def topic_for(pillar):
     return "pioneer-heritage"
 
 
+def thumbnail_for_article(article_path, href):
+    """Reuse a credited figure image; skip missing local assets."""
+    from html.parser import HTMLParser
+    from urllib.parse import urlsplit
+
+    class FigureParser(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.in_figure = False
+            self.source = None
+
+        def handle_starttag(self, tag, attrs):
+            if tag == "figure":
+                self.in_figure = True
+            if tag == "img" and self.in_figure and self.source is None:
+                candidate = dict(attrs).get("src", "")
+                parsed = urlsplit(candidate)
+                if parsed.scheme == "https" and parsed.netloc:
+                    self.source = candidate
+                elif not parsed.scheme and not parsed.netloc and candidate:
+                    asset = (article_path.parent / parsed.path).resolve()
+                    if asset.is_relative_to(Path.cwd().resolve()) and asset.is_file():
+                        self.source = candidate
+
+        def handle_endtag(self, tag):
+            if tag == "figure":
+                self.in_figure = False
+
+    parser = FigureParser()
+    parser.feed(article_path.read_text(encoding="utf-8"))
+    if not parser.source:
+        return ""
+    return (
+        f'<a class="article-card-image-link" href="{escape(href, quote=True)}" tabindex="-1" aria-hidden="true">'
+        f'<img class="article-card-image" src="{escape(parser.source, quote=True)}" alt="" '
+        'loading="lazy" decoding="async" width="800" height="400" '
+        'onerror="this.parentElement.remove()"></a>'
+    )
+
+
 def main():
     raw = os.environ.get("GOOGLE_SERVICE_ACCOUNT_JSON")
     if not raw:
@@ -78,9 +118,10 @@ def main():
     if not excerpt:
         excerpt = f"Explore the Florida history of {title}."
     topic = topic_for(pillar)
+    thumbnail = thumbnail_for_article(Path(href), href)
     card = (
         f'<div class="card article-library-card" data-article-card data-type="mini" data-topics="{topic}">'
-        f'<div class="kicker">{escape(ASSET_ID)} · {escape(pillar)}</div>'
+        f'{thumbnail}<div class="kicker">{escape(ASSET_ID)} · {escape(pillar)}</div>'
         f'<h2>{escape(title)}</h2><p>{escape(excerpt)}</p>'
         f'<a class="btn" href="{escape(href)}">Read Mini</a></div>\n'
     )
