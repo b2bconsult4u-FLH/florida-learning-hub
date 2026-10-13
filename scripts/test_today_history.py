@@ -69,5 +69,20 @@ class PublicationTests(unittest.TestCase):
         bodies = {url: '\n'.join(needles).replace("'", '&#x27;') for _, url, needles in verification.checks(item)}
         self.assertEqual(verification.verify(item, bodies.__getitem__), [])
 
+    def test_associated_image_cannot_be_replaced_with_source_link_only(self):
+        item = {'images': [{'src': 'https://example.test/photo.jpg', 'credit': 'State Archives', 'source_url': 'https://example.test/record'}]}
+        with self.assertRaisesRegex(ValueError, 'must be embedded'):
+            publish.validate_images(item, '<a href="https://example.test/record">State Archives</a>')
+        publish.validate_images(item, '<figure><img src="https://example.test/photo.jpg" alt="Candidate campaigning"><figcaption>State Archives <a href="https://example.test/record">Source</a></figcaption></figure>')
+        with self.assertRaisesRegex(ValueError, 'credit/source missing'):
+            publish.validate_images(item, '<img src="https://example.test/photo.jpg" alt="Candidate">')
+
+    def test_verifier_rejects_article_without_expected_image(self):
+        item = dict(title='New', display_date='October 13', live_file='today-new.html', images=[dict(src='assets/photo.jpg', credit='Archives', source_url='https://example.test/record')])
+        bodies = {url: '\n'.join(needles) for _, url, needles in verification.checks(item)}
+        self.assertEqual(verification.verify(item, bodies.__getitem__), [])
+        bodies['https://floridalearninghub.org/today-new.html'] = '<h1>New</h1>'
+        self.assertEqual(verification.verify(item, bodies.__getitem__), ['article: expected publication content missing'])
+
 if __name__ == '__main__':
     unittest.main()

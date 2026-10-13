@@ -3,7 +3,8 @@
 import json
 import os
 import re
-from html import escape
+from html import escape, unescape
+from html.parser import HTMLParser
 from datetime import date, datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -28,6 +29,33 @@ def replace_panel(home, panel):
             return home[:start] + panel + home[start + match.end():]
     raise ValueError('Homepage history panel is unbalanced')
 
+class ArticleImages(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.images = []
+        self.links = []
+    def handle_starttag(self, tag, attrs):
+        attrs = dict(attrs)
+        if tag == 'img':
+            self.images.append(attrs)
+        elif tag == 'a':
+            self.links.append(attrs.get('href'))
+
+def validate_images(item, article):
+    parser = ArticleImages()
+    parser.feed(article)
+    for image in item.get('images', []):
+        matches = [x for x in parser.images if x.get('src') == image['src']]
+        if not matches or not all(x.get('alt', '').strip() for x in matches):
+            raise ValueError('Associated image must be embedded with alt text: ' + image['src'])
+        if image['credit'] not in unescape(article) or image['source_url'] not in parser.links:
+            raise ValueError('Associated image credit/source missing: ' + image['src'])
+        if not image['src'].startswith(('https://', 'http://')):
+            asset = (ROOT / image['src']).resolve()
+            if not asset.is_relative_to(ROOT.resolve()) or not asset.is_file():
+                raise ValueError('Associated local image missing: ' + image['src'])
+
+
 def main():
     today = os.getenv('FLH_TODAY') or datetime.now(ZoneInfo('America/New_York')).date().isoformat()
     manifest = ROOT / 'today-history-queue/manifest.json'
@@ -39,6 +67,9 @@ def main():
     live = ROOT / item['live_file']
     if not staged.is_file():
         raise ValueError(f'Approved staged article missing: {staged}')
+    validate_images(item, staged.read_text())
+    if live.exists():
+        validate_images(item, live.read_text())
     archive_path, home_path = ROOT / 'today-in-florida-history.html', ROOT / 'index.html'
     archive, home = archive_path.read_text(), home_path.read_text()
     marker = '<section class="article">'

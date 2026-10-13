@@ -6,9 +6,9 @@ Only entries marked `Approved for Publication` and due on the current `America/N
 
 GitHub Actions attempts publication at 3:17, 4:23, 5:41 and 6:17 a.m. Eastern. Its scheduler is best-effort and recent runs arrived hours late. Successful late no-op runs are not evidence of on-time publication.
 
-The independent Work task `Publish and Verify FLH` runs at 8:15 a.m. Eastern. It replaces the former inspect-only task, retaining its identity. It can publish the already-approved current-date article using connected GitHub tools and the repository publishing script when source publication is incomplete. It commits only publication files atomically, never force-pushes, preserves past content, and verifies the exact Cloudflare deployment and live content when accessible. It reports queue/access/source/deployment failures and remains enabled. This combines recovery and verification in one task within the account's five-active-task limit. Other scheduled tasks are unchanged.
+The deployed Cloudflare Worker `flh-publish-clock` checks the approved current-date queue and live article, homepage, archive, and sitemap. Its UTC cron runs every ten minutes from 07:00 through 13:59; the code acts from 4 a.m. Eastern and handles daylight saving time. If publication is incomplete and no fresh GitHub run is underway, it dispatches `publish-today-history.yml` with `trigger_source=cloudflare-clock`. GitHub publishes and verifies the site. The separate `flh-publish-watchdog` checks and attempts recovery during the 7 a.m. Eastern hour. Current deployment has GITHUB_TOKEN and KV bindings; external notification secrets are not configured, so external alerts must not be claimed.
 
-Missing GitHub scheduled events alone do not constitute a publication failure if independent recovery succeeded. The task distinguishes source preparation, a commit, successful Cloudflare deployment, and successful live-content verification.
+Work's `Publish and Verify FLH` automation was paused on October 13, 2026. It must not publish daily or conceal independent scheduler failures. The clock's KV record shows an October 13 dispatch at 12:00 UTC (8:00 a.m. EDT); GitHub run 38394119855's log records `SOURCE: cloudflare-clock`, and KV records verified live content at 8:10 a.m. This proves independent publication, but does not prove delivery by 6:30 a.m. Future runs must be assessed using their actual trigger, dispatch, and live-verification times. Workflow run titles now expose the caller label.
 
 Each GitHub run tests safeguards, commits publication and waits up to ten minutes for live verification. Missing approved entries now fail explicitly instead of silently succeeding. Queue changes trigger current-date validation; they do not publish upcoming dates early. Manual dispatch remains available.
 
@@ -21,3 +21,9 @@ GitHub documents that scheduled events may be delayed or dropped. Internal sched
 ## Prepared week
 
 October 5–11, 2026: Madison Starke Perry; Florida's 1939 Thanksgiving dispute; British East and West Florida; Mary Lee Graham; Santa Rosa Island; Hurricane Michael; Key West's 1846 hurricane. Source links are included in every staged HTML article. October 12 requires a new approved queue entry.
+
+## Images required in articles
+
+Every associated publication image must be embedded in the article with descriptive alt text, an accurate caption, archive/creator credit, and an optional link to the original record. Readers must not need to leave FLH to see the image. Prefer a verified local asset under `assets/`; do not ship broken remote images or claim a different photograph shows the same scene. Before approval, verify that each embedded image renders. Keep the staged and live correction synchronized. Generated illustrations must be labeled as illustrations, never as archival photographs.
+
+Record associated images in each manifest entry's `images` list with `src`, `credit`, and `source_url`. The publisher requires an embedded image with alt text, source link and credit, and checks that local assets exist. Live verification checks those details and downloads each declared image to reject missing files or HTML error pages returned as images.
