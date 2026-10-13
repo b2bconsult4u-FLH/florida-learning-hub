@@ -1,4 +1,5 @@
 name: Publish Today in Florida History
+run-name: "Today in Florida History · ${{ inputs.trigger_source || github.event_name }}"
 
 on:
   schedule:
