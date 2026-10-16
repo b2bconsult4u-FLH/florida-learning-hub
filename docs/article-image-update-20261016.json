@@ -1,0 +1,155 @@
+{
+  "date": "2026-10-16",
+  "status": "Approved article-specific conceptual illustrations; Key West revised after historical validation",
+  "key_west_sources": [
+    "https://www.floridastateparks.org/parks-and-trails/fort-zachary-taylor-historic-state-park/history",
+    "https://apps.flheritage.com/markers/markerDetail.cfm?id=338"
+  ],
+  "key_west_validation": "Earlier fort had two tiers of enclosed gun rooms and rooftop artillery, stood offshore, and was later reduced; image remains an interpretive reconstruction.",
+  "images": [
+    {
+      "article": "living-from-the-lagoon-mini.html",
+      "title": "Living From the Lagoon",
+      "asset": "assets/articles/living-from-the-lagoon-mini-card-hero.webp",
+      "source_generation": "d0be45e2-972e-472c-a205-53a6f4fa4a1e",
+      "alt": "Workers mend fishing nets and pack fish beside a wooden Florida lagoon fish house.",
+      "width": 1600,
+      "height": 800
+    },
+    {
+      "article": "the-watermen-of-sebastian-mini.html",
+      "title": "The Watermen of Sebastian",
+      "asset": "assets/articles/the-watermen-of-sebastian-mini-card-hero.webp",
+      "source_generation": "bab02d4e-a389-4c42-88a7-9bcc6c5c236d",
+      "alt": "Fishermen unload mullet beside a Sebastian fish house as white pelicans gather on the Indian River Lagoon.",
+      "width": 1600,
+      "height": 800
+    },
+    {
+      "article": "florida-during-the-civil-war-mini.html",
+      "title": "Florida During the Civil War",
+      "asset": "assets/articles/florida-during-the-civil-war-mini-card-hero.webp",
+      "source_generation": "5f769d3d-91df-446e-8cdd-3435d609a540",
+      "alt": "Cattle drovers pass a Florida farm while a naval vessel patrols distant coastal waters.",
+      "width": 1600,
+      "height": 800
+    },
+    {
+      "article": "the-battle-of-olustee-mini.html",
+      "title": "The Battle of Olustee",
+      "asset": "assets/articles/the-battle-of-olustee-mini-card-hero.webp",
+      "source_generation": "b2fce499-a94e-45e2-8313-069e7a3399c4",
+      "alt": "Black Union infantry move through smoky north Florida pine flatwoods.",
+      "width": 1600,
+      "height": 800
+    },
+    {
+      "article": "floridas-cow-cavalry-mini.html",
+      "title": "Florida\u2019s Cow Cavalry",
+      "asset": "assets/articles/floridas-cow-cavalry-mini-card-hero.webp",
+      "source_generation": "4202fc50-bfd7-49c9-a8a8-134b1fe8b035",
+      "alt": "Mounted Florida cowhunters guide small, lean Cracker cattle through pine and palmetto country.",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "article": "salt-makers-of-the-gulf-coast-mini.html",
+      "title": "Salt Makers of the Gulf Coast",
+      "asset": "assets/articles/salt-makers-of-the-gulf-coast-mini-card-hero.webp",
+      "source_generation": "6fed8ae8-bad9-44b0-8515-847a11221730",
+      "alt": "Workers tend steaming iron salt-evaporation pans over wood-fired masonry furnaces beside a Gulf salt marsh.",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "article": "floridas-blockade-runners-mini.html",
+      "title": "Florida\u2019s Blockade Runners",
+      "asset": "assets/articles/floridas-blockade-runners-mini-card-hero.webp",
+      "source_generation": "50f88c56-42d8-4bab-8e77-1c8580bf041d",
+      "alt": "A nineteenth-century coastal steamer leaves a mangrove-lined river mouth at twilight with a patrol vessel offshore.",
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "article": "floridas-unionists-mini.html",
+      "title": "Florida\u2019s Unionists",
+      "asset": "assets/articles/floridas-unionists-mini-card-hero.webp",
+      "source_generation": "b92dfcbb-bcfa-49ef-8599-1ee07cc65cd3",
+      "alt": "Civilian refugees arrive by wooden skiff at a Union coastal outpost in Florida.",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "article": "key-west-floridas-union-island-mini.html",
+      "title": "Key West: Florida\u2019s Union Island",
+      "asset": "assets/articles/key-west-floridas-union-island-mini-card-hero.webp",
+      "source_generation": "aa279c05-5528-46cf-976d-cc624eaf0a17",
+      "alt": "Conceptual reconstruction of Fort Taylor offshore, with two tiers of gun rooms and rooftop artillery before its later reduction.",
+      "width": 1600,
+      "height": 800
+    },
+    {
+      "article": "tobacco-country-mini.html",
+      "title": "Tobacco Country: North Florida\u2019s Forgotten Cash Crop",
+      "asset": "assets/articles/tobacco-country-mini-card-hero.webp",
+      "source_generation": "416cd82c-d19a-492e-98fe-025749abb5f6",
+      "alt": "Adult farm workers harvest bright-leaf tobacco beside a wooden curing barn in north Florida.",
+      "width": 1600,
+      "height": 800
+    },
+    {
+      "article": "a-midnight-errand-at-cotton-wood-mini.html",
+      "title": "A Midnight Errand at Cotton Wood",
+      "asset": "assets/articles/a-midnight-errand-at-cotton-wood-mini-card-hero.webp",
+      "source_generation": "7528b58b-99a0-46ae-87cb-27db14598f87",
+      "alt": "Two closed wooden boxes beside disturbed earth in a lantern-lit stable, illustrating the Cotton Wood account.",
+      "width": 1600,
+      "height": 800
+    },
+    {
+      "article": "gamble-plantation-mini.html",
+      "title": "Gamble Plantation",
+      "asset": "assets/articles/gamble-plantation-mini-card-hero.webp",
+      "source_generation": "0e82cc70-f8a9-4c80-9926-bfa6d2015c49",
+      "alt": "Conceptual view of a two-story Florida plantation house with tall square columns and covered verandas.",
+      "width": 1600,
+      "height": 800
+    },
+    {
+      "article": "enoch-daniel-jr-charlotte-harbor-frontier.html",
+      "title": "Enoch Daniel Jr.",
+      "asset": "assets/articles/enoch-daniel-jr-charlotte-harbor-frontier-card-hero.webp",
+      "source_generation": "7112f139-9350-4159-b42a-a10abb719e7d",
+      "alt": "An anonymous older frontier scout looks across a Charlotte Harbor channel beside a wooden boat and Union camp.",
+      "width": 1600,
+      "height": 800
+    },
+    {
+      "article": "seven-brothers-stitched-path.html",
+      "title": "The Seven Brothers and the Stitched Path to Punta Pinal",
+      "asset": "assets/articles/seven-brothers-stitched-path-card-hero.webp",
+      "source_generation": "c8d555c4-0c14-4ccc-8441-68b20b8e751b",
+      "alt": "Pioneer families travel with household wagons along a sandy path through Florida pine and palmetto country.",
+      "width": 1600,
+      "height": 800
+    },
+    {
+      "article": "before-flagler-mini.html",
+      "title": "Before Flagler",
+      "asset": "assets/articles/before-flagler-mini-card-hero.webp",
+      "source_generation": "a8c36531-05c3-4fba-9138-c2511789a123",
+      "alt": "An early steam locomotive pulls wooden cars across a low timber trestle through coastal north Florida.",
+      "width": 1600,
+      "height": 800
+    },
+    {
+      "article": "stage-routes-mini.html",
+      "title": "Stage Routes",
+      "asset": "assets/articles/stage-routes-mini-card-hero.webp",
+      "source_generation": "3919f5d9-2393-4d15-b50b-a1d4587fc0a5",
+      "alt": "A stagecoach driver exchanges a mailbag at a wooden Florida relay station beside a two-horse team.",
+      "width": 1600,
+      "height": 800
+    }
+  ]
+}
