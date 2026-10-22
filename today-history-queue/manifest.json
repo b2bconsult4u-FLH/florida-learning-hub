@@ -337,7 +337,11 @@
           "credit": "National Park Service",
           "source_url": "https://www.nps.gov/ever/learn/historyculture/hm69.htm"
         }
-      ]
+      ],
+      "editorial_requirements": {
+        "minimum_narrative_words": 1000,
+        "classroom_resources": true
+      }
     },
     {
       "publish_date": "2026-10-23",
@@ -347,7 +351,11 @@
       "link_title": "Olustee Becomes Florida\u2019s First State Historic Site",
       "summary": "1912 \u2014 A memorial dedication at Olustee marked a milestone in Florida\u2019s public preservation of history.",
       "staged_file": "2026-10-23.html",
-      "live_file": "today-october-23-1912-olustee-memorial-state-historic-site.html"
+      "live_file": "today-october-23-1912-olustee-memorial-state-historic-site.html",
+      "editorial_requirements": {
+        "minimum_narrative_words": 1000,
+        "classroom_resources": true
+      }
     },
     {
       "publish_date": "2026-10-24",
@@ -364,7 +372,11 @@
           "credit": "NASA",
           "source_url": "https://www.nasa.gov/history/nasa-history-deep-space-1-validated-the-promise-of-ion-thrusters/"
         }
-      ]
+      ],
+      "editorial_requirements": {
+        "minimum_narrative_words": 1000,
+        "classroom_resources": true
+      }
     },
     {
       "publish_date": "2026-10-25",
@@ -381,7 +393,11 @@
           "credit": "Tampa-Hillsborough County Public Library System, via NOAA / National Weather Service",
           "source_url": "https://www.weather.gov/media/tbw/1921/1921_Hurr_99th_Anniversary.pdf"
         }
-      ]
+      ],
+      "editorial_requirements": {
+        "minimum_narrative_words": 1000,
+        "classroom_resources": true
+      }
     },
     {
       "publish_date": "2026-10-26",
@@ -398,7 +414,11 @@
           "credit": "National Park Service / Denise Diaz",
           "source_url": "https://www.nps.gov/drto/learn/historyculture/index.htm"
         }
-      ]
+      ],
+      "editorial_requirements": {
+        "minimum_narrative_words": 1000,
+        "classroom_resources": true
+      }
     },
     {
       "publish_date": "2026-10-27",
@@ -408,7 +428,11 @@
       "link_title": "A Treaty Defines Spanish Florida\u2019s Northern Boundary",
       "summary": "1795 \u2014 The Treaty of San Lorenzo settled a disputed frontier and changed access to the Mississippi River.",
       "staged_file": "2026-10-27.html",
-      "live_file": "today-october-27-1795-pinckney-treaty-spanish-florida-boundary.html"
+      "live_file": "today-october-27-1795-pinckney-treaty-spanish-florida-boundary.html",
+      "editorial_requirements": {
+        "minimum_narrative_words": 1000,
+        "classroom_resources": true
+      }
     },
     {
       "publish_date": "2026-10-28",
@@ -418,7 +442,11 @@
       "link_title": "Air Mail Launches Pan Am\u2019s Scheduled Service from Key West",
       "summary": "1927 \u2014 A regular mail connection between Key West and Havana helped establish Pan American Airways as a scheduled airline.",
       "staged_file": "2026-10-28.html",
-      "live_file": "today-october-28-1927-pan-am-key-west-havana-scheduled-airmail.html"
+      "live_file": "today-october-28-1927-pan-am-key-west-havana-scheduled-airmail.html",
+      "editorial_requirements": {
+        "minimum_narrative_words": 1000,
+        "classroom_resources": true
+      }
     },
     {
       "publish_date": "2026-10-29",
@@ -435,7 +463,11 @@
           "credit": "NASA",
           "source_url": "https://www.nasa.gov/history/25-years-ago-sts-95-john-glenn-returns-to-space/"
         }
-      ]
+      ],
+      "editorial_requirements": {
+        "minimum_narrative_words": 1000,
+        "classroom_resources": true
+      }
     },
     {
       "publish_date": "2026-10-30",
@@ -445,7 +477,11 @@
       "link_title": "A New Shands Bridge Spans the St. Johns",
       "summary": "1963 \u2014 The October 30 dedication marked a new crossing between communities on opposite sides of the St. Johns River.",
       "staged_file": "2026-10-30.html",
-      "live_file": "today-october-30-1963-shands-bridge-st-johns-dedication.html"
+      "live_file": "today-october-30-1963-shands-bridge-st-johns-dedication.html",
+      "editorial_requirements": {
+        "minimum_narrative_words": 1000,
+        "classroom_resources": true
+      }
     },
     {
       "publish_date": "2026-10-31",
@@ -455,7 +491,11 @@
       "link_title": "A Tractor Parade Puts Rural Florida on Display",
       "summary": "1950 \u2014 A dated Tallahassee photograph links the North Florida Fair to the machinery and public celebration of farm life.",
       "staged_file": "2026-10-31.html",
-      "live_file": "today-october-31-1950-north-florida-fair-tractor-parade.html"
+      "live_file": "today-october-31-1950-north-florida-fair-tractor-parade.html",
+      "editorial_requirements": {
+        "minimum_narrative_words": 1000,
+        "classroom_resources": true
+      }
     }
   ]
 }

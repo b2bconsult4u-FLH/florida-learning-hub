@@ -1,5 +1,11 @@
 # Today in Florida History Queue
 
+## October 22–31 editorial standard
+
+The October 22–31, 2026 queue has been expanded to at least 1,000 words of historical narrative per article. Narrative counts exclude the headline, subheadings, byline, captions, citations, teaching material, source list, and navigation. Each article answers who, what, where, when, why, how, and why the event matters, followed by a Classroom Connection with a reading prompt, glossary, comprehension questions, discussion question, writing prompt, and expandable teacher notes.
+
+These ten manifest entries declare `editorial_requirements`, which the publisher validates before making publication changes. Earlier entries and the October 21 article are outside this revision and retain their existing validation. Original release dates, titles, image credits, and image assets are preserved. Future entries remain in the dated queue until their scheduled release.
+
 Only entries marked `Approved for Publication` and due on the current `America/New_York` date are eligible. Future articles remain staged. Publication copies the dated article to a root-level live page and updates the homepage, monthly archive and sitemap. Retries preserve existing live articles and do not duplicate archive links.
 
 ## Unattended publication and recovery

@@ -41,6 +41,45 @@ class ArticleImages(HTMLParser):
         elif tag == 'a':
             self.links.append(attrs.get('href'))
 
+class NarrativeWords(HTMLParser):
+    """Count narrative paragraphs, excluding headings, citations and teaching aids."""
+    def __init__(self):
+        super().__init__()
+        self.sections = 0
+        self.excluded = []
+        self.text = []
+    def handle_starttag(self, tag, attrs):
+        if tag == 'section':
+            if self.sections or dict(attrs).get('id') == 'historical-narrative':
+                self.sections += 1
+        if self.sections and tag in {'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'sup', 'figcaption', 'script', 'style'}:
+            self.excluded.append(tag)
+    def handle_endtag(self, tag):
+        if self.excluded and tag == self.excluded[-1]:
+            self.excluded.pop()
+        if tag == 'section' and self.sections:
+            self.sections -= 1
+    def handle_data(self, data):
+        if self.sections and not self.excluded:
+            self.text.append(data)
+
+def narrative_word_count(article):
+    parser = NarrativeWords()
+    parser.feed(article)
+    return len(' '.join(parser.text).split())
+
+def validate_editorial(item, article):
+    requirements = item.get('editorial_requirements', {})
+    minimum = requirements.get('minimum_narrative_words', 0)
+    if minimum:
+        count = narrative_word_count(article)
+        if count < minimum:
+            raise ValueError(f'Historical narrative has {count} words; minimum is {minimum}')
+    if requirements.get('classroom_resources'):
+        for marker in ('id="classroom-connection"', 'Reading Prompt', 'Glossary', 'Reading Check', 'Think and Discuss', 'Short Writing Prompt', 'Teacher Notes and Suggested Answers'):
+            if marker not in article:
+                raise ValueError('Classroom resource missing: ' + marker)
+
 def validate_images(item, article):
     parser = ArticleImages()
     parser.feed(article)
@@ -67,6 +106,7 @@ def main():
     live = ROOT / item['live_file']
     if not staged.is_file():
         raise ValueError(f'Approved staged article missing: {staged}')
+    validate_editorial(item, staged.read_text())
     validate_images(item, staged.read_text())
     if live.exists():
         validate_images(item, live.read_text())

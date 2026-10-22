@@ -8,6 +8,19 @@ import publish_today_history as publish
 import verify_today_history as verification
 
 class PublicationTests(unittest.TestCase):
+    def test_narrative_minimum_excludes_headings_citations_and_classroom_material(self):
+        article = '<h1>Outside title</h1><section id="historical-narrative"><h2>Many heading words here</h2><p>One two three<sup>[1]</sup> four five.</p></section><section id="classroom-connection">' + ('Classroom ' * 1000) + '</section>'
+        self.assertEqual(publish.narrative_word_count(article), 5)
+        item = {'editorial_requirements': {'minimum_narrative_words': 1000}}
+        with self.assertRaisesRegex(ValueError, 'minimum is 1000'):
+            publish.validate_editorial(item, article)
+        publish.validate_editorial(item, '<section id="historical-narrative"><p>' + ('History ' * 1000) + '</p></section>')
+
+    def test_editorial_requirements_are_scoped_and_check_classroom_components(self):
+        publish.validate_editorial({}, 'Existing approved article remains valid')
+        with self.assertRaisesRegex(ValueError, 'Classroom resource missing'):
+            publish.validate_editorial({'editorial_requirements': {'classroom_resources': True}}, '<section id="classroom-connection">Glossary</section>')
+
     def test_retries_and_next_day_preserve_structure(self):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder)
