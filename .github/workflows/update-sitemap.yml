@@ -40,28 +40,17 @@ jobs:
       - name: Notify IndexNow about changed HTML
         if: github.event_name == 'push'
         env:
-          INDEXNOW_KEY: a91f7c6e5d4b3a2f8e7d6c5b4a392817
           BEFORE_SHA: ${{ github.event.before }}
           AFTER_SHA: ${{ github.sha }}
         run: |
           set -euo pipefail
-          changed_urls=$(git diff --name-only "$BEFORE_SHA" "$AFTER_SHA" -- '*.html' | sed 's#^#https://floridalearninghub.org/#' | python -c 'import sys,json; print(json.dumps([line.strip() for line in sys.stdin if line.strip()]))')
-          if [ "$changed_urls" = "[]" ]; then
+          changed_urls=$(git diff --name-only "$BEFORE_SHA" "$AFTER_SHA" -- '*.html' | sed 's#^#https://floridalearninghub.org/#')
+          if [ -z "$changed_urls" ]; then
             echo "No changed HTML URLs to submit."
             exit 0
           fi
-          payload=$(python - "$changed_urls" <<'PY'
-import json, sys
-urls = json.loads(sys.argv[1])
-print(json.dumps({
-  "host": "floridalearninghub.org",
-  "key": "a91f7c6e5d4b3a2f8e7d6c5b4a392817",
-  "keyLocation": "https://floridalearninghub.org/a91f7c6e5d4b3a2f8e7d6c5b4a392817.txt",
-  "urlList": urls
-}))
-PY
-)
+          printf '%s\n' "$changed_urls" | python -c 'import json,sys; urls=[line.strip() for line in sys.stdin if line.strip()]; print(json.dumps({"host":"floridalearninghub.org","key":"a91f7c6e5d4b3a2f8e7d6c5b4a392817","keyLocation":"https://floridalearninghub.org/a91f7c6e5d4b3a2f8e7d6c5b4a392817.txt","urlList":urls}))' > /tmp/indexnow.json
           curl --fail-with-body --silent --show-error \
             -H 'Content-Type: application/json; charset=utf-8' \
-            -d "$payload" \
+            --data-binary @/tmp/indexnow.json \
             https://api.indexnow.org/indexnow
