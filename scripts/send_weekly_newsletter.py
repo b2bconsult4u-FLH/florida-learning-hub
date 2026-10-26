@@ -36,8 +36,7 @@ def additions():
     date = None
     found = {}
     for line in lines:
-        if re.match(r"^\\d{4}-\\d\\d-\\d\\dT", line):
-            date = dt.datetime.fromisoformat(line).astimezone(dt.timezone(dt.timedelta(hours=-4))).date()
+        if re.match(r"^\d{4}-\d\d-\d\dT", line):
             # The action passes Eastern boundaries; timezone conversion below handles DST.
             date = dt.datetime.fromisoformat(line).astimezone(
                 __import__("zoneinfo").ZoneInfo("America/New_York")
@@ -52,7 +51,7 @@ def additions():
 def metadata(filename):
     text = (ROOT / filename).read_text(encoding="utf-8")
     title_match = re.search(r"<title[^>]*>(.*?)</title>", text, re.I | re.S)
-    description = re.search(r'<meta\\s+name=["\\\']description["\\\']\\s+content=["\\\'](.*?)["\\\']', text, re.I | re.S)
+    description = re.search(r'<meta\s+name=["\\\']description["\\\']\s+content=["\\\'](.*?)["\\\']', text, re.I | re.S)
     title = html.unescape(re.sub(r"<[^>]+>", "", title_match.group(1))).strip() if title_match else filename[:-5].replace("-", " ").title()
     summary = html.unescape(description.group(1)).strip() if description else ""
     return title[:140], summary[:220]
