@@ -1,3 +1,4 @@
 DISPOSABLE TEST FILE - GitHub access verification (2026-10-27)
 Created by Claude to test branch -> commit -> draft PR -> update -> close.
 Safe to delete. Must never be merged into main.
+Update 2: second harmless commit to verify PR updates are visible.
