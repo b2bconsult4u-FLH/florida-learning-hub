@@ -51,7 +51,7 @@ def additions():
 def metadata(filename):
     text = (ROOT / filename).read_text(encoding="utf-8")
     title_match = re.search(r"<title[^>]*>(.*?)</title>", text, re.I | re.S)
-    description = re.search(r'<meta\s+name=["\\\']description["\\\']\s+content=["\\\'](.*?)["\\\']', text, re.I | re.S)
+    description = re.search(r"""<meta\s+name=["']description["']\s+content=["'](.*?)["']""", text, re.I | re.S)
     title = html.unescape(re.sub(r"<[^>]+>", "", title_match.group(1))).strip() if title_match else filename[:-5].replace("-", " ").title()
     summary = html.unescape(description.group(1)).strip() if description else ""
     return title[:140], summary[:220]
@@ -71,6 +71,9 @@ def api(method, endpoint, payload=None):
 def main():
     pages = []
     for filename, published in sorted(additions().items(), key=lambda x: (x[1], x[0]), reverse=True):
+        if not (ROOT / filename).is_file():
+            print(f"Page missing from checkout: {filename}", file=sys.stderr)
+            continue
         title, summary = metadata(filename)
         # Confirm pages are live before notifying readers.
         url = SITE + "/" + urllib.parse.quote(filename)
