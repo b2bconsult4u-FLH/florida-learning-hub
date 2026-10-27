@@ -5,7 +5,7 @@ Status: PROPOSED. Written 2026-10-27 after a controlled access test. Nothing her
 
 ## Standing rules
 
-1. Nothing merges, deploys, or changes `main` without Bill's explicit approval in chat.
+1. Nothing merges to `main`, modifies production infrastructure, or triggers a production deployment without Bill's explicit approval in chat. Automatic Cloudflare Pages *preview* builds on development branches are expected and do not constitute authorized production deployment.
 2. Every change starts on its own clearly named branch and ends as a **draft** pull request.
 3. Never print, copy, or commit secrets. Workflows reference secret names only.
 4. Inspect workflow triggers before the first push of any branch (see "Side effects" below).
@@ -61,11 +61,11 @@ Status: PROPOSED. Written 2026-10-27 after a controlled access test. Nothing her
 
 ### 8. Merge only after explicit authorization
 - Claude does not merge on its own. After Bill approves in chat, merge using the method he names (squash is the default suggestion), then verify `main` and the live site.
-- Merging through the GitHub web UI with "Automatically delete head branches" enabled removes the branch automatically.
+- When the repository setting "Automatically delete head branches" is enabled, merging a PR normally deletes its source branch automatically; **closing an unmerged PR does not**.
 
 ### 9. Clean up
 - Close superseded PRs without merging.
-- Branch deletion from Claude's environment is currently blocked (see table). Delete finished branches from the GitHub Branches page, or enable "Automatically delete head branches" in repository settings (owner action).
+- Branch deletion from Claude's environment is currently blocked (see table). For **closed and unmerged** PRs, the owner must delete the source branch using the GitHub Branches page. For **merged** PRs, the repository setting "Automatically delete head branches" can automate cleanup.
 
 ## Side effects to check before the first push
 
@@ -88,6 +88,6 @@ Read-only review on 2026-10-27. No branches, files, or PRs were created there.
 
 | Restriction | Effect | Owner action |
 |---|---|---|
-| Branch deletion blocked in Claude's environment | Test and finished branches accumulate | Delete from GitHub Branches page, or enable auto-delete of head branches |
+| Branch deletion blocked in Claude's environment | Test and finished branches accumulate | For closed/unmerged PRs, delete from GitHub Branches page; for merged PRs, optionally enable auto-delete of head branches |
 | FLTract not attached with write credentials | Claude cannot yet open FLTract PRs or read its protection rules and Actions through the authenticated API | Bill to approve attaching FLTract with push access when FLTract work begins |
 | Cloudflare dashboard not yet authorized | Preview and deployment settings can be seen only through the PR check and comment | Next integration step |
