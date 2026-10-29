@@ -4,6 +4,12 @@ on:
     # UTC triggers covering 9 a.m. Eastern in both DST seasons.
     - cron: '0 13,14 * * 0'
   workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Run without creating or sending any Brevo campaign'
+        type: boolean
+        required: true
+        default: true
 permissions:
   contents: read
 concurrency:
@@ -35,7 +41,7 @@ jobs:
         env:
           BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
           BREVO_LIST_ID: '4'
-          FLH_NEWSLETTER_SEND: ${{ vars.FLH_NEWSLETTER_SEND }}
+          FLH_NEWSLETTER_SEND: ${{ github.event_name == 'workflow_dispatch' && 'false' || vars.FLH_NEWSLETTER_SEND }}
         run: |
           echo "FLH_WEEK_END=$(TZ=America/New_York date -d 'yesterday' +%F)" >> "$GITHUB_ENV"
           FLH_WEEK_END=$(TZ=America/New_York date -d 'yesterday' +%F) python scripts/send_weekly_newsletter.py
