@@ -19,10 +19,9 @@ LIST_ID = int(os.getenv("BREVO_LIST_ID", "4"))
 SENDER = {"name": "Florida Learning Hub", "email": "updates@floridalearninghub.org"}
 LIMIT = 300
 EXCLUDE = {"index.html", "today-in-florida-history.html", "privacy-and-your-data.html"}
-END = dt.datetime.now(dt.timezone.utc)
 # The preceding Monday through Saturday, in America/New_York, is determined by workflow.
 WEEK_END = dt.date.fromisoformat(os.environ["FLH_WEEK_END"])
-WEEK_START = WEEK_END - dt.timedelta(days=6)
+WEEK_START = WEEK_END - dt.timedelta(days=5)
 ISSUE = f"FLH Weekly Website Updates — {WEEK_END.isoformat()}"
 
 
@@ -51,7 +50,7 @@ def additions():
 def metadata(filename):
     text = (ROOT / filename).read_text(encoding="utf-8")
     title_match = re.search(r"<title[^>]*>(.*?)</title>", text, re.I | re.S)
-    description = re.search(r'<meta\s+name=["\\\']description["\\\']\s+content=["\\\'](.*?)["\\\']', text, re.I | re.S)
+    description = re.search(r"""<meta\s+name=["']description["']\s+content=["'](.*?)["']""", text, re.I | re.S)
     title = html.unescape(re.sub(r"<[^>]+>", "", title_match.group(1))).strip() if title_match else filename[:-5].replace("-", " ").title()
     summary = html.unescape(description.group(1)).strip() if description else ""
     return title[:140], summary[:220]
@@ -71,6 +70,9 @@ def api(method, endpoint, payload=None):
 def main():
     pages = []
     for filename, published in sorted(additions().items(), key=lambda x: (x[1], x[0]), reverse=True):
+        if not (ROOT / filename).is_file():
+            print(f"Page missing from checkout: {filename}", file=sys.stderr)
+            continue
         title, summary = metadata(filename)
         # Confirm pages are live before notifying readers.
         url = SITE + "/" + urllib.parse.quote(filename)
@@ -106,7 +108,7 @@ You're receiving this email because you subscribed to Florida Learning Hub updat
 <a href="{{{{ unsubscribe }}}}">Unsubscribe</a> &nbsp;|&nbsp;
 <a href="{SITE}/privacy-and-your-data.html">Privacy &amp; Your Data</a>
 </td></tr></table></td></tr></table></body></html>"""
-    if os.getenv("FLH_NEWSLETTER_SEND") != "true":
+    if os.getenv("FLH_NEWSLETTER_SEND", "").strip().lower() != "true":
         print("DRY RUN: no campaign created or sent.")
         print(json.dumps({"issue": ISSUE, "pages": [p[2] for p in pages]}, indent=2))
         return
