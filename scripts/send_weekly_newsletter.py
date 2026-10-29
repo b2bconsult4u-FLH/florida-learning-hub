@@ -19,10 +19,9 @@ LIST_ID = int(os.getenv("BREVO_LIST_ID", "4"))
 SENDER = {"name": "Florida Learning Hub", "email": "updates@floridalearninghub.org"}
 LIMIT = 300
 EXCLUDE = {"index.html", "today-in-florida-history.html", "privacy-and-your-data.html"}
-END = dt.datetime.now(dt.timezone.utc)
 # The preceding Monday through Saturday, in America/New_York, is determined by workflow.
 WEEK_END = dt.date.fromisoformat(os.environ["FLH_WEEK_END"])
-WEEK_START = WEEK_END - dt.timedelta(days=6)
+WEEK_START = WEEK_END - dt.timedelta(days=5)
 ISSUE = f"FLH Weekly Website Updates — {WEEK_END.isoformat()}"
 
 
@@ -109,7 +108,7 @@ You're receiving this email because you subscribed to Florida Learning Hub updat
 <a href="{{{{ unsubscribe }}}}">Unsubscribe</a> &nbsp;|&nbsp;
 <a href="{SITE}/privacy-and-your-data.html">Privacy &amp; Your Data</a>
 </td></tr></table></td></tr></table></body></html>"""
-    if os.getenv("FLH_NEWSLETTER_SEND") != "true":
+    if os.getenv("FLH_NEWSLETTER_SEND", "").strip().lower() != "true":
         print("DRY RUN: no campaign created or sent.")
         print(json.dumps({"issue": ISSUE, "pages": [p[2] for p in pages]}, indent=2))
         return
