@@ -12,7 +12,7 @@ body{color:var(--ink)}
 .header> a:not(.brand) img{max-width:720px}
 .brand{display:grid;grid-template-columns:1fr 160px 1fr;align-items:center;gap:16px;color:var(--green);text-decoration:none;min-height:94px}
 .brand-name{font-size:clamp(25px,2.8vw,40px);font-weight:700;letter-spacing:-1px;text-align:left}
-.brand-tree{display:block;width:160px;height:98px;background:url('assets/flh-header.png') center 2px/350px auto no-repeat;filter:brightness(1.12)}
+.brand-tree{display:block;width:160px;height:98px;background:url('assets/flh-header.webp') center 2px/350px auto no-repeat;filter:brightness(1.12)}
 .brand-motto{font-size:clamp(14px,1.4vw,20px);font-style:italic;text-align:right}
 .nav{background:var(--green);padding:12px 14px;gap:4px;line-height:1.4}
 .nav a{color:white;text-transform:none;font:600 14px/1.4 Arial,sans-serif;letter-spacing:0;margin:0;padding:10px 12px;border-radius:5px}
