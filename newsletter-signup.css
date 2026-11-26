@@ -16,19 +16,26 @@
   .flh-signup-callout {
     position: relative;
     inset: auto;
-    width: min(calc(100% - 32px), 360px);
-    margin: 0 16px 18px;
-    padding: 12px 14px;
+    width: min(calc(100% - 32px), 280px);
+    margin: 0 auto 18px;
+    padding: 10px 12px;
+    text-align: center;
   }
 
   .flh-signup-callout h2 {
-    font-size: 19px;
+    font-size: 17px;
     margin-bottom: 4px;
   }
 
   .sandbar-hero .flh-signup-callout p {
-    font-size: 13px;
+    font-size: 12px;
     margin-bottom: 8px;
+  }
+
+  .flh-signup-callout small a {
+    display: block;
+    width: fit-content;
+    margin: 2px auto 0;
   }
 
   .sandbar-hero .hero-copy {
