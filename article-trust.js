@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
   corrections.textContent = "Corrections policy";
   details.append(corrections);
   trust.append(label, author, details);
-  (subtitle || title).after(trust);
+  if (!article.querySelector(".article-trust")) (subtitle || title).after(trust);
   const citation = document.createElement("section");
   citation.className = "suggested-citation";
   citation.setAttribute("aria-labelledby", "suggested-citation-heading");

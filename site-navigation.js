@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const segment = parts.length ? decodeURIComponent(parts[parts.length - 1]) : "";
   const file = !segment ? "index.html" : (segment.endsWith(".html") ? segment : segment + ".html");
   const topPages = new Set(["index.html","read-florida.html","discover-pioneer-florida.html","teach-pioneer-florida.html","classroom-resources.html","stories-and-books.html","today-in-florida-history.html"]);
-  if (topPages.has(file)) return;
+  if (topPages.has(file) || document.querySelector(".breadcrumb")) return;
   const main = document.querySelector("main");
   const heading = main && main.querySelector("h1");
   const active = document.querySelector('#primary-nav a[aria-current="page"]');

@@ -1,5 +1,11 @@
 # Today in Florida History Queue
 
+## Approved November 1–14 batch
+
+The owner approved the complete November 1–14, 2026 articles on October 29 with “Perfect. Send the full articles upstream.” All fourteen dated HTML files and their manifest entries are staged here with `Approved for Publication` status. Each declares a minimum of 1,000 narrative words and the complete Classroom Connection requirements, which the publisher validates at release. Sources and teaching material are preserved from the approved review copy. This batch was approved as text with source links and has no associated image assets.
+
+The existing current-date publisher releases one entry on its assigned Eastern date; these queue additions do not add November live pages or November archive/homepage links early. No scheduler changes are part of this content batch.
+
 ## October 22–31 editorial standard
 
 The October 22–31, 2026 queue has been expanded to at least 1,000 words of historical narrative per article. Narrative counts exclude the headline, subheadings, byline, captions, citations, teaching material, source list, and navigation. Each article answers who, what, where, when, why, how, and why the event matters, followed by a Classroom Connection with a reading prompt, glossary, comprehension questions, discussion question, writing prompt, and expandable teacher notes.

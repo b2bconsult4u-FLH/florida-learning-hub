@@ -1,5 +1,5 @@
 {
-  "last_featured": "October 26",
+  "last_featured": "November 26",
   "entries": [
     {
       "publish_date": "2026-09-21",
@@ -496,6 +496,660 @@
         "minimum_narrative_words": 1000,
         "classroom_resources": true
       }
+    },
+    {
+      "publish_date": "2026-11-01",
+      "display_date": "November 1",
+      "status": "Approved for Publication",
+      "title": "A Light Returns to Mosquito Inlet",
+      "link_title": "A Light Returns to Mosquito Inlet",
+      "summary": "1887 \u2014 The first lighting of the new Mosquito Inlet lighthouse reveals the engineering, dangerous construction work and daily maintenance behind safer coastal travel.",
+      "staged_file": "2026-11-01.html",
+      "live_file": "today-november-1-1887-mosquito-inlet-lighthouse.html",
+      "editorial_requirements": {
+        "minimum_narrative_words": 1000,
+        "classroom_resources": true
+      },
+      "approval": {
+        "approved_by": "Bill McMullen",
+        "approved_date": "2026-10-29",
+        "instruction": "Perfect. Send the full articles upstream"
+      },
+      "images": []
+    },
+    {
+      "publish_date": "2026-11-02",
+      "display_date": "November 2",
+      "status": "Approved for Publication",
+      "title": "Election Day Violence Begins in Ocoee",
+      "link_title": "Election Day Violence Begins in Ocoee",
+      "summary": "1920 \u2014 Mose Norman\u2019s attempt to vote leads into the Ocoee Massacre, the destruction of a Black community and the lasting consequences for property and voting rights.",
+      "staged_file": "2026-11-02.html",
+      "live_file": "today-november-2-1920-ocoee-election-day-violence.html",
+      "editorial_requirements": {
+        "minimum_narrative_words": 1000,
+        "classroom_resources": true
+      },
+      "approval": {
+        "approved_by": "Bill McMullen",
+        "approved_date": "2026-10-29",
+        "instruction": "Perfect. Send the full articles upstream"
+      },
+      "images": []
+    },
+    {
+      "publish_date": "2026-11-03",
+      "display_date": "November 3",
+      "status": "Approved for Publication",
+      "title": "An Invasion Reaches Amelia Island",
+      "link_title": "An Invasion Reaches Amelia Island",
+      "summary": "1702 \u2014 James Moore\u2019s expedition reaches Amelia Island, opening the approach to St. Augustine and a siege that tests Spanish defenses and devastates communities outside the fort.",
+      "staged_file": "2026-11-03.html",
+      "live_file": "today-november-3-1702-amelia-island-invasion.html",
+      "editorial_requirements": {
+        "minimum_narrative_words": 1000,
+        "classroom_resources": true
+      },
+      "approval": {
+        "approved_by": "Bill McMullen",
+        "approved_date": "2026-10-29",
+        "instruction": "Perfect. Send the full articles upstream"
+      },
+      "images": []
+    },
+    {
+      "publish_date": "2026-11-04",
+      "display_date": "November 4",
+      "status": "Approved for Publication",
+      "title": "Rollins Opens Before Its Campus Is Ready",
+      "link_title": "Rollins Opens Before Its Campus Is Ready",
+      "summary": "1885 \u2014 Rollins begins teaching in borrowed and unfinished rooms, showing how philanthropy, women educators and local cooperation build an enduring Winter Park institution.",
+      "staged_file": "2026-11-04.html",
+      "live_file": "today-november-4-1885-rollins-college-opens.html",
+      "editorial_requirements": {
+        "minimum_narrative_words": 1000,
+        "classroom_resources": true
+      },
+      "approval": {
+        "approved_by": "Bill McMullen",
+        "approved_date": "2026-10-29",
+        "instruction": "Perfect. Send the full articles upstream"
+      },
+      "images": []
+    },
+    {
+      "publish_date": "2026-11-05",
+      "display_date": "November 5",
+      "status": "Approved for Publication",
+      "title": "Floridians Approve a New Framework for Government",
+      "link_title": "Floridians Approve a New Framework for Government",
+      "summary": "1968 \u2014 Voters ratify major constitutional revisions, changing Florida\u2019s executive and legislative framework while leaving the judicial article for later reform.",
+      "staged_file": "2026-11-05.html",
+      "live_file": "today-november-5-1968-florida-constitution.html",
+      "editorial_requirements": {
+        "minimum_narrative_words": 1000,
+        "classroom_resources": true
+      },
+      "approval": {
+        "approved_by": "Bill McMullen",
+        "approved_date": "2026-10-29",
+        "instruction": "Perfect. Send the full articles upstream"
+      },
+      "images": []
+    },
+    {
+      "publish_date": "2026-11-06",
+      "display_date": "November 6",
+      "status": "Approved for Publication",
+      "title": "An Election Pushes Florida Toward Secession",
+      "link_title": "An Election Pushes Florida Toward Secession",
+      "summary": "1860 \u2014 Lincoln\u2019s election prompts Florida leaders toward secession. The article follows the decisions between Election Day and January 1861 and explains slavery\u2019s central role.",
+      "staged_file": "2026-11-06.html",
+      "live_file": "today-november-6-1860-lincoln-election-florida-secession.html",
+      "editorial_requirements": {
+        "minimum_narrative_words": 1000,
+        "classroom_resources": true
+      },
+      "approval": {
+        "approved_by": "Bill McMullen",
+        "approved_date": "2026-10-29",
+        "instruction": "Perfect. Send the full articles upstream"
+      },
+      "images": []
+    },
+    {
+      "publish_date": "2026-11-07",
+      "display_date": "November 7",
+      "status": "Approved for Publication",
+      "title": "Florida Votes, and the Nation Waits",
+      "link_title": "Florida Votes, and the Nation Waits",
+      "summary": "2000 \u2014 Florida\u2019s extraordinarily close presidential vote makes local ballots, recount standards, deadlines and courts decisive in choosing the next president.",
+      "staged_file": "2026-11-07.html",
+      "live_file": "today-november-7-2000-florida-presidential-election.html",
+      "editorial_requirements": {
+        "minimum_narrative_words": 1000,
+        "classroom_resources": true
+      },
+      "approval": {
+        "approved_by": "Bill McMullen",
+        "approved_date": "2026-10-29",
+        "instruction": "Perfect. Send the full articles upstream"
+      },
+      "images": []
+    },
+    {
+      "publish_date": "2026-11-08",
+      "display_date": "November 8",
+      "status": "Approved for Publication",
+      "title": "Claude Kirk Breaks Florida\u2019s Democratic Hold on the Governor\u2019s Office",
+      "link_title": "Claude Kirk Breaks Florida\u2019s Democratic Hold on the Governor\u2019s Office",
+      "summary": "1966 \u2014 Claude Kirk\u2019s election breaks a long Democratic hold on the governorship and opens a story of two-party competition, divided authority and education conflict.",
+      "staged_file": "2026-11-08.html",
+      "live_file": "today-november-8-1966-claude-kirk-elected.html",
+      "editorial_requirements": {
+        "minimum_narrative_words": 1000,
+        "classroom_resources": true
+      },
+      "approval": {
+        "approved_by": "Bill McMullen",
+        "approved_date": "2026-10-29",
+        "instruction": "Perfect. Send the full articles upstream"
+      },
+      "images": []
+    },
+    {
+      "publish_date": "2026-11-09",
+      "display_date": "November 9",
+      "status": "Approved for Publication",
+      "title": "The Saturn V Takes Its First Flight",
+      "link_title": "The Saturn V Takes Its First Flight",
+      "summary": "1967 \u2014 Apollo 4 launches the first Saturn V from Kennedy, using an uncrewed flight to test the rocket, ground facilities and the spacecraft\u2019s demanding return to Earth.",
+      "staged_file": "2026-11-09.html",
+      "live_file": "today-november-9-1967-apollo-4-saturn-v.html",
+      "editorial_requirements": {
+        "minimum_narrative_words": 1000,
+        "classroom_resources": true
+      },
+      "approval": {
+        "approved_by": "Bill McMullen",
+        "approved_date": "2026-10-29",
+        "instruction": "Perfect. Send the full articles upstream"
+      },
+      "images": []
+    },
+    {
+      "publish_date": "2026-11-10",
+      "display_date": "November 10",
+      "status": "Approved for Publication",
+      "title": "Florida Bankers Confront Two Thanksgivings",
+      "link_title": "Florida Bankers Confront Two Thanksgivings",
+      "summary": "1939 \u2014 A bankers\u2019 bulletin addresses two competing Thanksgiving dates, connecting Florida business with Depression-era economic policy, federalism and shared calendars.",
+      "staged_file": "2026-11-10.html",
+      "live_file": "today-november-10-1939-two-thanksgivings-florida-banks.html",
+      "editorial_requirements": {
+        "minimum_narrative_words": 1000,
+        "classroom_resources": true
+      },
+      "approval": {
+        "approved_by": "Bill McMullen",
+        "approved_date": "2026-10-29",
+        "instruction": "Perfect. Send the full articles upstream"
+      },
+      "images": []
+    },
+    {
+      "publish_date": "2026-11-11",
+      "display_date": "November 11",
+      "status": "Approved for Publication",
+      "title": "Florida Faces the Promise and Work of Peace",
+      "link_title": "Florida Faces the Promise and Work of Peace",
+      "summary": "1918 \u2014 The armistice\u2019s meaning for Florida extends from military training and service to demobilization, unequal citizenship and the later development of Veterans Day.",
+      "staged_file": "2026-11-11.html",
+      "live_file": "today-november-11-1918-armistice-florida.html",
+      "editorial_requirements": {
+        "minimum_narrative_words": 1000,
+        "classroom_resources": true
+      },
+      "approval": {
+        "approved_by": "Bill McMullen",
+        "approved_date": "2026-10-29",
+        "instruction": "Perfect. Send the full articles upstream"
+      },
+      "images": []
+    },
+    {
+      "publish_date": "2026-11-12",
+      "display_date": "November 12",
+      "status": "Approved for Publication",
+      "title": "Columbia Proves a Spacecraft Can Fly Again",
+      "link_title": "Columbia Proves a Spacecraft Can Fly Again",
+      "summary": "1981 \u2014 Columbia\u2019s second flight tests orbital reusability, ground improvements, a robotic arm and Earth-observation instruments; a fuel-cell problem shortens the mission.",
+      "staged_file": "2026-11-12.html",
+      "live_file": "today-november-12-1981-columbia-sts-2.html",
+      "editorial_requirements": {
+        "minimum_narrative_words": 1000,
+        "classroom_resources": true
+      },
+      "approval": {
+        "approved_by": "Bill McMullen",
+        "approved_date": "2026-10-29",
+        "instruction": "Perfect. Send the full articles upstream"
+      },
+      "images": []
+    },
+    {
+      "publish_date": "2026-11-13",
+      "display_date": "November 13",
+      "status": "Approved for Publication",
+      "title": "Cary Hardee Is Born in Rural Florida",
+      "link_title": "Cary Hardee Is Born in Rural Florida",
+      "summary": "1876 \u2014 The birth of future governor Cary Hardee opens a biography connecting rural Florida with public finance, schools, private convict-leasing reform and livestock policy.",
+      "staged_file": "2026-11-13.html",
+      "live_file": "today-november-13-1876-cary-hardee-born.html",
+      "editorial_requirements": {
+        "minimum_narrative_words": 1000,
+        "classroom_resources": true
+      },
+      "approval": {
+        "approved_by": "Bill McMullen",
+        "approved_date": "2026-10-29",
+        "instruction": "Perfect. Send the full articles upstream"
+      },
+      "images": []
+    },
+    {
+      "publish_date": "2026-11-14",
+      "display_date": "November 14",
+      "status": "Approved for Publication",
+      "title": "Lightning Tests Apollo 12 Above Florida",
+      "link_title": "Lightning Tests Apollo 12 Above Florida",
+      "summary": "1969 \u2014 Two lightning disturbances threaten Apollo 12 after liftoff; the response and investigation connect Florida weather with technical teamwork and improved launch rules.",
+      "staged_file": "2026-11-14.html",
+      "live_file": "today-november-14-1969-apollo-12-lightning.html",
+      "editorial_requirements": {
+        "minimum_narrative_words": 1000,
+        "classroom_resources": true
+      },
+      "approval": {
+        "approved_by": "Bill McMullen",
+        "approved_date": "2026-10-29",
+        "instruction": "Perfect. Send the full articles upstream"
+      },
+      "images": []
+    },
+    {
+      "publish_date": "2026-11-15",
+      "display_date": "November 15",
+      "status": "Approved for Publication",
+      "title": "Tampa Opens the Florida State Fair",
+      "link_title": "Tampa Opens the Florida State Fair",
+      "summary": "1905 \u2014 Tampa\u2019s opening-day program connects agricultural exhibits, local merchants, and the Gasparilla parade.",
+      "staged_file": "today-november-15-1905-fair.html",
+      "live_file": "today-november-15-1905-fair.html",
+      "approval": {
+        "approved_by": "Bill McMullen",
+        "approved_date": "2026-11-18",
+        "instruction": "Excellent. Set it up so they publish accordingly"
+      },
+      "images": [
+        {
+          "src": "assets/history/november-15-fair.png",
+          "credit": "Original Florida Learning Hub editorial illustration.",
+          "source_url": "https://floridalearninghub.org/assets/history/november-15-fair.png"
+        }
+      ]
+    },
+    {
+      "publish_date": "2026-11-16",
+      "display_date": "November 16",
+      "status": "Approved for Publication",
+      "title": "Artemis I Lifts Off from Kennedy Space Center",
+      "link_title": "Artemis I Lifts Off from Kennedy Space Center",
+      "summary": "2022 \u2014 NASA launches its first integrated Artemis flight test from Kennedy Space Center.",
+      "staged_file": "today-november-16-2022-artemis.html",
+      "live_file": "today-november-16-2022-artemis.html",
+      "approval": {
+        "approved_by": "Bill McMullen",
+        "approved_date": "2026-11-18",
+        "instruction": "Excellent. Set it up so they publish accordingly"
+      },
+      "images": [
+        {
+          "src": "assets/history/november-16-artemis.png",
+          "credit": "Original Florida Learning Hub editorial illustration.",
+          "source_url": "https://floridalearninghub.org/assets/history/november-16-artemis.png"
+        }
+      ]
+    },
+    {
+      "publish_date": "2026-11-17",
+      "display_date": "November 17",
+      "status": "Approved for Publication",
+      "title": "Nixon Says \u201cI Am Not a Crook\u201d at Walt Disney World",
+      "link_title": "Nixon Says \u201cI Am Not a Crook\u201d at Walt Disney World",
+      "summary": "1973 \u2014 At Walt Disney World, President Nixon defends his finances and denies obstructing justice during a nationally televised session.",
+      "staged_file": "today-november-17-1973-nixon.html",
+      "live_file": "today-november-17-1973-nixon.html",
+      "approval": {
+        "approved_by": "Bill McMullen",
+        "approved_date": "2026-11-18",
+        "instruction": "Excellent. Set it up so they publish accordingly"
+      },
+      "images": [
+        {
+          "src": "assets/history/november-17-nixon.png",
+          "credit": "Original Florida Learning Hub editorial illustration.",
+          "source_url": "https://floridalearninghub.org/assets/history/november-17-nixon.png"
+        }
+      ]
+    },
+    {
+      "publish_date": "2026-11-17",
+      "display_date": "November 17",
+      "status": "Published",
+      "title": "Miami\u2019s Tobacco Road Celebrates a Claimed Century",
+      "link_title": "Miami\u2019s Tobacco Road Celebrates a Claimed Century",
+      "summary": "2012 \u2014 A Miami landmark\u2019s centennial celebration invites a closer look at the evidence behind its claimed 1912 liquor license.",
+      "staged_file": "today-november-17-2012-tobacco-road.html",
+      "live_file": "today-november-17-2012-tobacco-road.html",
+      "approval": {
+        "approved_by": "Bill McMullen",
+        "approved_date": "2026-11-18",
+        "instruction": "Excellent. Set it up so they publish accordingly"
+      },
+      "images": [
+        {
+          "src": "assets/history/november-17-tobacco-road.png",
+          "credit": "Original Florida Learning Hub editorial illustration.",
+          "source_url": "https://floridalearninghub.org/assets/history/november-17-tobacco-road.png"
+        }
+      ]
+    },
+    {
+      "publish_date": "2026-11-18",
+      "display_date": "November 18",
+      "status": "Approved for Publication",
+      "title": "James Ingraham Is Born, Years Before His Everglades Survey",
+      "link_title": "James Ingraham Is Born, Years Before His Everglades Survey",
+      "summary": "1850 \u2014 A railroad engineer\u2019s career leads from a survey across the Everglades to the Florida East Coast Railway.",
+      "staged_file": "today-november-18-1850-ingraham.html",
+      "live_file": "today-november-18-1850-ingraham.html",
+      "approval": {
+        "approved_by": "Bill McMullen",
+        "approved_date": "2026-11-18",
+        "instruction": "Excellent. Set it up so they publish accordingly"
+      },
+      "images": [
+        {
+          "src": "assets/history/november-18-ingraham.png",
+          "credit": "Original Florida Learning Hub editorial illustration.",
+          "source_url": "https://floridalearninghub.org/assets/history/november-18-ingraham.png"
+        }
+      ]
+    },
+    {
+      "publish_date": "2026-11-19",
+      "display_date": "November 19",
+      "status": "Approved for Publication",
+      "title": "Apollo 12 Lands Near Surveyor 3",
+      "link_title": "Apollo 12 Lands Near Surveyor 3",
+      "summary": "1969 \u2014 Five days after lifting off in Florida, the mission puts astronauts within walking distance of a robotic spacecraft.",
+      "staged_file": "today-november-19-1969-apollo-12-landing.html",
+      "live_file": "today-november-19-1969-apollo-12-landing.html",
+      "approval": {
+        "approved_by": "Bill McMullen",
+        "approved_date": "2026-11-18",
+        "instruction": "Excellent. Set it up so they publish accordingly"
+      },
+      "images": [
+        {
+          "src": "assets/history/november-19-apollo-12-landing.png",
+          "credit": "Original Florida Learning Hub editorial illustration.",
+          "source_url": "https://floridalearninghub.org/assets/history/november-19-apollo-12-landing.png"
+        }
+      ]
+    },
+    {
+      "publish_date": "2026-11-20",
+      "display_date": "November 20",
+      "status": "Approved for Publication",
+      "title": "A Governor\u2019s Letterbook Records Florida\u2019s Wartime Lighthouse Concerns",
+      "link_title": "A Governor\u2019s Letterbook Records Florida\u2019s Wartime Lighthouse Concerns",
+      "summary": "1861 \u2014 A dated letterbook entry opens a look at Florida\u2019s lighthouses and their place in wartime navigation.",
+      "staged_file": "today-november-20-1861-wartime-lights.html",
+      "live_file": "today-november-20-1861-wartime-lights.html",
+      "approval": {
+        "approved_by": "Bill McMullen",
+        "approved_date": "2026-11-18",
+        "instruction": "Excellent. Set it up so they publish accordingly"
+      },
+      "images": [
+        {
+          "src": "assets/history/november-20-wartime-lights.png",
+          "credit": "Original Florida Learning Hub editorial illustration.",
+          "source_url": "https://floridalearninghub.org/assets/history/november-20-wartime-lights.png"
+        }
+      ]
+    },
+    {
+      "publish_date": "2026-11-21",
+      "display_date": "November 21",
+      "status": "Approved for Publication",
+      "title": "The Miami Herald Reports the Marianna School Fire",
+      "link_title": "The Miami Herald Reports the Marianna School Fire",
+      "summary": "1914 \u2014 A newspaper account preserves evidence about a deadly fire at the Florida Industrial School for Boys.",
+      "staged_file": "today-november-21-1914-marianna-fire.html",
+      "live_file": "today-november-21-1914-marianna-fire.html",
+      "approval": {
+        "approved_by": "Bill McMullen",
+        "approved_date": "2026-11-18",
+        "instruction": "Excellent. Set it up so they publish accordingly"
+      },
+      "images": [
+        {
+          "src": "assets/history/november-21-marianna-fire.png",
+          "credit": "Original Florida Learning Hub editorial illustration.",
+          "source_url": "https://floridalearninghub.org/assets/history/november-21-marianna-fire.png"
+        }
+      ]
+    },
+    {
+      "publish_date": "2026-11-22",
+      "display_date": "November 22",
+      "status": "Approved for Publication",
+      "title": "Florida Broadcasters Plan to Carry the Everglades Dedication",
+      "link_title": "Florida Broadcasters Plan to Carry the Everglades Dedication",
+      "summary": "1947 \u2014 A letter to radio stations describes how Florida listeners could hear the dedication from Everglades City.",
+      "staged_file": "today-november-22-1947-everglades-radio.html",
+      "live_file": "today-november-22-1947-everglades-radio.html",
+      "approval": {
+        "approved_by": "Bill McMullen",
+        "approved_date": "2026-11-18",
+        "instruction": "Excellent. Set it up so they publish accordingly"
+      },
+      "images": [
+        {
+          "src": "assets/history/november-22-everglades-radio.png",
+          "credit": "Original Florida Learning Hub editorial illustration.",
+          "source_url": "https://floridalearninghub.org/assets/history/november-22-everglades-radio.png"
+        }
+      ]
+    },
+    {
+      "publish_date": "2026-11-23",
+      "display_date": "November 23",
+      "status": "Approved for Publication",
+      "title": "Royal Palm State Park Is Dedicated at Paradise Key",
+      "link_title": "Royal Palm State Park Is Dedicated at Paradise Key",
+      "summary": "1916 \u2014 The dedication brings together protection for Paradise Key and a road giving visitors access to it.",
+      "staged_file": "today-november-23-1916-royal-palm.html",
+      "live_file": "today-november-23-1916-royal-palm.html",
+      "approval": {
+        "approved_by": "Bill McMullen",
+        "approved_date": "2026-11-18",
+        "instruction": "Excellent. Set it up so they publish accordingly"
+      },
+      "images": [
+        {
+          "src": "assets/history/november-23-royal-palm.png",
+          "credit": "Original Florida Learning Hub editorial illustration.",
+          "source_url": "https://floridalearninghub.org/assets/history/november-23-royal-palm.png"
+        }
+      ]
+    },
+    {
+      "publish_date": "2026-11-24",
+      "display_date": "November 24",
+      "status": "Approved for Publication",
+      "title": "Miami\u2019s First Baptist Congregation Uses Its New Chapel",
+      "link_title": "Miami\u2019s First Baptist Congregation Uses Its New Chapel",
+      "summary": "1901 \u2014 A new chapel opens for services and later finds a second home in Buena Vista.",
+      "staged_file": "today-november-24-1901-miami-chapel.html",
+      "live_file": "today-november-24-1901-miami-chapel.html",
+      "approval": {
+        "approved_by": "Bill McMullen",
+        "approved_date": "2026-11-18",
+        "instruction": "Excellent. Set it up so they publish accordingly"
+      },
+      "images": [
+        {
+          "src": "assets/history/november-24-miami-chapel.png",
+          "credit": "Original Florida Learning Hub editorial illustration.",
+          "source_url": "https://floridalearninghub.org/assets/history/november-24-miami-chapel.png"
+        }
+      ]
+    },
+    {
+      "publish_date": "2026-11-25",
+      "display_date": "November 25",
+      "status": "Approved for Publication",
+      "title": "The 31st Infantry Division Is Activated at Camp Blanding",
+      "link_title": "The 31st Infantry Division Is Activated at Camp Blanding",
+      "summary": "1940 \u2014 The Army brings National Guard units into federal service at the Clay County camp.",
+      "staged_file": "today-november-25-1940-camp-blanding.html",
+      "live_file": "today-november-25-1940-camp-blanding.html",
+      "approval": {
+        "approved_by": "Bill McMullen",
+        "approved_date": "2026-11-18",
+        "instruction": "Excellent. Set it up so they publish accordingly"
+      },
+      "images": [
+        {
+          "src": "assets/history/november-25-camp-blanding.png",
+          "credit": "Original Florida Learning Hub editorial illustration.",
+          "source_url": "https://floridalearninghub.org/assets/history/november-25-camp-blanding.png"
+        }
+      ]
+    },
+    {
+      "publish_date": "2026-11-26",
+      "display_date": "November 26",
+      "status": "Approved for Publication",
+      "title": "Florida Certifies Its Presidential Vote",
+      "link_title": "Florida Certifies Its Presidential Vote",
+      "summary": "2000 \u2014 The state canvassing commission certifies a 537-vote margin, with litigation continuing afterward.",
+      "staged_file": "today-november-26-2000-election-certification.html",
+      "live_file": "today-november-26-2000-election-certification.html",
+      "approval": {
+        "approved_by": "Bill McMullen",
+        "approved_date": "2026-11-18",
+        "instruction": "Excellent. Set it up so they publish accordingly"
+      },
+      "images": [
+        {
+          "src": "assets/history/november-26-election-certification.png",
+          "credit": "Original Florida Learning Hub editorial illustration.",
+          "source_url": "https://floridalearninghub.org/assets/history/november-26-election-certification.png"
+        }
+      ]
+    },
+    {
+      "publish_date": "2026-11-27",
+      "display_date": "November 27",
+      "status": "Approved for Publication",
+      "title": "Governor Drew Names Florida\u2019s Thanksgiving Date",
+      "link_title": "Governor Drew Names Florida\u2019s Thanksgiving Date",
+      "summary": "1879 \u2014 Florida\u2019s governor names the same Thanksgiving date as President Rutherford B. Hayes.",
+      "staged_file": "today-november-27-1879-drew-thanksgiving.html",
+      "live_file": "today-november-27-1879-drew-thanksgiving.html",
+      "approval": {
+        "approved_by": "Bill McMullen",
+        "approved_date": "2026-11-18",
+        "instruction": "Excellent. Set it up so they publish accordingly"
+      },
+      "images": [
+        {
+          "src": "assets/history/november-27-drew-thanksgiving.png",
+          "credit": "Original Florida Learning Hub editorial illustration.",
+          "source_url": "https://floridalearninghub.org/assets/history/november-27-drew-thanksgiving.png"
+        }
+      ]
+    },
+    {
+      "publish_date": "2026-11-28",
+      "display_date": "November 28",
+      "status": "Approved for Publication",
+      "title": "Mariner 4 Leaves Florida for Mars",
+      "link_title": "Mariner 4 Leaves Florida for Mars",
+      "summary": "1964 \u2014 A spacecraft launched from Florida returns the first close-up images of Mars.",
+      "staged_file": "today-november-28-1964-mariner-4.html",
+      "live_file": "today-november-28-1964-mariner-4.html",
+      "approval": {
+        "approved_by": "Bill McMullen",
+        "approved_date": "2026-11-18",
+        "instruction": "Excellent. Set it up so they publish accordingly"
+      },
+      "images": [
+        {
+          "src": "assets/history/november-28-mariner-4.png",
+          "credit": "Original Florida Learning Hub editorial illustration.",
+          "source_url": "https://floridalearninghub.org/assets/history/november-28-mariner-4.png"
+        }
+      ]
+    },
+    {
+      "publish_date": "2026-11-29",
+      "display_date": "November 29",
+      "status": "Approved for Publication",
+      "title": "Enos Orbits Earth Aboard Mercury-Atlas 5",
+      "link_title": "Enos Orbits Earth Aboard Mercury-Atlas 5",
+      "summary": "1961 \u2014 A Mercury spacecraft completes two orbits after launching from Cape Canaveral.",
+      "staged_file": "today-november-29-1961-enos.html",
+      "live_file": "today-november-29-1961-enos.html",
+      "approval": {
+        "approved_by": "Bill McMullen",
+        "approved_date": "2026-11-18",
+        "instruction": "Excellent. Set it up so they publish accordingly"
+      },
+      "images": [
+        {
+          "src": "assets/history/november-29-enos.png",
+          "credit": "Original Florida Learning Hub editorial illustration.",
+          "source_url": "https://floridalearninghub.org/assets/history/november-29-enos.png"
+        }
+      ]
+    },
+    {
+      "publish_date": "2026-11-30",
+      "display_date": "November 30",
+      "status": "Approved for Publication",
+      "title": "The Scott Party Is Attacked on the Apalachicola",
+      "link_title": "The Scott Party Is Attacked on the Apalachicola",
+      "summary": "1817 \u2014 An attack on a U.S. Army party traveling upstream helps widen the conflict that became the First Seminole War.",
+      "staged_file": "today-november-30-1817-scott-party.html",
+      "live_file": "today-november-30-1817-scott-party.html",
+      "approval": {
+        "approved_by": "Bill McMullen",
+        "approved_date": "2026-11-18",
+        "instruction": "Excellent. Set it up so they publish accordingly"
+      },
+      "images": [
+        {
+          "src": "assets/history/november-30-scott-party.png",
+          "credit": "Original Florida Learning Hub editorial illustration.",
+          "source_url": "https://floridalearninghub.org/assets/history/november-30-scott-party.png"
+        }
+      ]
     }
   ]
 }
